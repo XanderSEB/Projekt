@@ -164,37 +164,23 @@ const Tab = ({ project, index, scrollProgress, isActive, activeIndex, totalTabs 
       const rotation = relativePosition * 2; // -2° → 0° → 2°
       const zIndex = 100 + Math.floor(activeProgress * 50);
       
+      // Nur sichtbar, wenn der Tab bereits eingeschliden ist
+      const opacity = slideProgress > 0.1 ? 1 : 0;
+      
       return {
         x,
         y,
         scale,
         rotate: rotation,
         zIndex,
-        opacity: 1, // Vollständig undurchsichtig - keine Transparenz
-      };
-    } else if (relativePosition < 0) {
-      // Tabs oberhalb des aktiven Tabs - deutlich kleiner und weniger sichtbar
-      const offset = Math.abs(relativePosition);
-      const y = -80 - (offset * 30); // Mehr Abstand
-      const rotation = -2 - (offset * 0.5);
-      const scale = 0.70 - (offset * 0.10); // Deutlich kleiner (0.70 → 0.60)
-      const opacity = Math.max(0.1, Math.min(0.4, 0.2 + (slideProgress * 0.2) - (offset * 0.15))); // Viel weniger sichtbar
-      
-      return {
-        x,
-        y,
-        scale,
-        rotate: rotation,
-        zIndex: 50 - Math.floor(offset * 10),
         opacity,
       };
     } else {
-      // Tabs unterhalb des aktiven Tabs - deutlich kleiner und weniger sichtbar
-      const offset = relativePosition;
-      const y = 80 + (offset * 30); // Mehr Abstand
-      const rotation = 2 + (offset * 0.5);
-      const scale = 0.70 - (offset * 0.10); // Deutlich kleiner (0.70 → 0.60)
-      const opacity = Math.max(0.1, Math.min(0.4, 0.2 + (slideProgress * 0.2) - (offset * 0.15))); // Viel weniger sichtbar
+      // Alle inaktiven Tabs: komplett unsichtbar
+      const offset = Math.abs(relativePosition);
+      const y = relativePosition < 0 ? -80 - (offset * 30) : 80 + (offset * 30);
+      const rotation = relativePosition < 0 ? -2 - (offset * 0.5) : 2 + (offset * 0.5);
+      const scale = 0.70 - (offset * 0.10);
       
       return {
         x,
@@ -202,7 +188,7 @@ const Tab = ({ project, index, scrollProgress, isActive, activeIndex, totalTabs 
         scale,
         rotate: rotation,
         zIndex: 50 - Math.floor(offset * 10),
-        opacity,
+        opacity: 0, // Komplett unsichtbar
       };
     }
   };

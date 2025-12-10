@@ -1,8 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { asaisGroupInfo } from '../data/asaisGroup';
+import { asaisGroupInfo, Project } from '../data/asaisGroup';
 import { ScrollAnimations } from './ScrollAnimations';
-import { FaCode, FaMobileAlt, FaGlobe, FaServer, FaCube, FaArrowRight, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaCode, FaMobileAlt, FaGlobe, FaServer, FaCube, FaArrowRight, FaEnvelope, FaPhone, FaCheckCircle } from 'react-icons/fa';
 
 export const ASAISGroup = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -138,107 +138,9 @@ export const ASAISGroup = () => {
         </div>
       </section>
 
-      {/* Portfolio Section - Platzhalter */}
+      {/* Portfolio Section mit Scroll-Zoom-Out Effekt */}
       {asaisGroupInfo.projects && asaisGroupInfo.projects.length > 0 && (
-        <section className="relative py-24 bg-slate-900/50">
-          <div className="container mx-auto px-6">
-            <ScrollAnimations direction="fade">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-                  Unsere Projekte
-                </h2>
-                <p className="text-xl text-white/70 max-w-2xl mx-auto">
-                  Entdecken Sie unsere neuesten Projekte und Case Studies
-                </p>
-              </div>
-            </ScrollAnimations>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-              {asaisGroupInfo.projects.map((project, index) => (
-                <ScrollAnimations key={project.id} direction="up" delay={index * 0.1}>
-                  <motion.div
-                    className="glass rounded-2xl overflow-hidden h-full flex flex-col"
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {project.imageUrl && (
-                      <div className="w-full h-64 bg-gradient-to-br from-primary-500/20 to-purple-500/20 relative overflow-hidden">
-                        <img 
-                          src={project.imageUrl} 
-                          alt={project.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    )}
-                    <div className="p-8 flex-grow flex flex-col">
-                      <h3 className="text-2xl font-bold text-white mb-3">
-                        {project.title}
-                      </h3>
-                      <p className="text-white/80 mb-4 leading-relaxed">
-                        {project.description}
-                      </p>
-                      
-                      {project.longDescription && (
-                        <p className="text-white/70 mb-6 leading-relaxed text-sm">
-                          {project.longDescription}
-                        </p>
-                      )}
-
-                      {/* Technologien */}
-                      <div className="mb-6">
-                        <h4 className="text-sm font-semibold text-white/90 mb-3 uppercase tracking-wide">
-                          Technologien
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech) => (
-                            <span
-                              key={tech}
-                              className="px-3 py-1.5 bg-primary-500/20 text-primary-300 rounded-full text-xs border border-primary-500/30"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Vorteile für Kunden */}
-                      {project.benefits && project.benefits.length > 0 && (
-                        <div className="mb-6">
-                          <h4 className="text-sm font-semibold text-white/90 mb-3 uppercase tracking-wide">
-                            Vorteile
-                          </h4>
-                          <ul className="space-y-2">
-                            {project.benefits.map((benefit, idx) => (
-                              <li key={idx} className="flex items-start gap-2 text-white/70 text-sm">
-                                <span className="text-primary-400 mt-1">✓</span>
-                                <span>{benefit}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      {/* Link Button */}
-                      {project.link && (
-                        <motion.a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-auto inline-flex items-center gap-2 px-6 py-3 bg-primary-500/20 hover:bg-primary-500/30 text-primary-300 rounded-lg text-sm font-semibold border border-primary-500/30 transition-colors w-fit"
-                          whileHover={{ scale: 1.05, x: 2 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <FaGlobe size={14} />
-                          Website besuchen
-                        </motion.a>
-                      )}
-                    </div>
-                  </motion.div>
-                </ScrollAnimations>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ProjectsShowcase projects={asaisGroupInfo.projects} />
       )}
 
       {/* Contact Section */}
@@ -287,5 +189,208 @@ export const ASAISGroup = () => {
         </div>
       </section>
     </div>
+  );
+};
+
+// ProjectsShowcase Komponente mit Scroll-Zoom-Out Effekt
+interface ProjectsShowcaseProps {
+  projects: Project[];
+}
+
+const ProjectsShowcase = ({ projects }: ProjectsShowcaseProps) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Einfache Scroll-Erkennung für aktives Projekt
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      // Finde das Projekt, das aktuell im Viewport ist
+      const projectElements = document.querySelectorAll('[data-project-index]');
+      let newActiveIndex = 0;
+      
+      projectElements.forEach((el, index) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
+          newActiveIndex = index;
+        }
+      });
+      
+      setActiveIndex(newActiveIndex);
+      setScrollProgress(Math.min(1, scrollPosition / (windowHeight * projects.length)));
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [projects.length]);
+
+  return (
+    <section className="relative py-24 bg-slate-900/50 overflow-hidden">
+      <div className="container mx-auto px-6">
+        <ScrollAnimations direction="fade">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+              Unsere Projekte
+            </h2>
+            <p className="text-xl text-white/70 max-w-2xl mx-auto">
+              Entdecken Sie unsere neuesten Projekte und Case Studies
+            </p>
+            <p className="text-sm text-white/50 mt-4">
+              Scrollen Sie, um durch die Projekte zu navigieren
+            </p>
+          </div>
+        </ScrollAnimations>
+      </div>
+
+      {/* Scroll Container - Projekte untereinander */}
+      <div className="relative w-full max-w-6xl mx-auto px-6">
+        <div className="space-y-12 md:space-y-16">
+          {projects && projects.length > 0 ? (
+            projects.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                scrollProgress={scrollProgress}
+                isActive={index === activeIndex}
+                activeIndex={activeIndex}
+                totalProjects={projects.length}
+              />
+            ))
+          ) : (
+            <div className="text-white text-center">
+              <p>Keine Projekte verfügbar</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ProjectCard Komponente mit Scroll-Animation
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+  scrollProgress: number;
+  isActive: boolean;
+  activeIndex: number;
+  totalProjects: number;
+}
+
+const ProjectCard = ({
+  project,
+  index,
+  scrollProgress,
+  isActive,
+  activeIndex,
+  totalProjects,
+}: ProjectCardProps) => {
+  // Vereinfachte Logik: Alle Projekte sind immer sichtbar, nur leichte Animationen
+  // Leichte Hover/Active Animation
+  const scale = isActive ? 1.02 : 1;
+
+  return (
+    <motion.div
+      data-project-index={index}
+      className="w-full"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      style={{
+        scale,
+      }}
+    >
+        <div
+          className="glass rounded-2xl overflow-hidden flex flex-col bg-slate-800/90 backdrop-blur-xl border border-white/10 shadow-2xl"
+          style={{ pointerEvents: 'auto', minHeight: '600px' }}
+        >
+          {/* Projekt Bild/Preview */}
+          <div className="w-full h-64 bg-gradient-to-br from-primary-500/20 to-purple-500/20 relative overflow-hidden">
+            {project.imageUrl ? (
+              <img
+                src={project.imageUrl}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <FaGlobe size={48} className="text-primary-400/50" />
+              </div>
+            )}
+          </div>
+
+          {/* Projekt Content */}
+          <div className="p-8 flex-grow flex flex-col" style={{ pointerEvents: 'auto' }}>
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              {project.title}
+            </h3>
+            <p className="text-white/80 mb-4 leading-relaxed">
+              {project.description}
+            </p>
+
+            {project.longDescription && (
+              <p className="text-white/70 mb-6 leading-relaxed text-sm line-clamp-2">
+                {project.longDescription}
+              </p>
+            )}
+
+            {/* Technologien */}
+            <div className="mb-6">
+              <h4 className="text-sm font-semibold text-white/90 mb-3 uppercase tracking-wide">
+                Technologien
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1.5 bg-primary-500/20 text-primary-300 rounded-full text-xs border border-primary-500/30"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Vorteile */}
+            {project.benefits && project.benefits.length > 0 && (
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-white/90 mb-3 uppercase tracking-wide">
+                  Vorteile für Kunden
+                </h4>
+                <ul className="space-y-2">
+                  {project.benefits.slice(0, 3).map((benefit, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-white/70 text-sm">
+                      <FaCheckCircle className="text-primary-400 mt-0.5 flex-shrink-0" size={14} />
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Link Button */}
+            {project.link && (
+              <motion.a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center gap-2 px-6 py-3 bg-primary-500/20 hover:bg-primary-500/30 text-primary-300 rounded-lg text-sm font-semibold border border-primary-500/30 transition-colors w-fit"
+                style={{ pointerEvents: 'auto' }}
+                whileHover={{ scale: 1.05, x: 2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FaGlobe size={14} />
+                Website besuchen
+              </motion.a>
+            )}
+          </div>
+        </div>
+      </motion.div>
   );
 };

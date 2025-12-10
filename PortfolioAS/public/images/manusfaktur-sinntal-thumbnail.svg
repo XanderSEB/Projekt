@@ -1,0 +1,78 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2c1810;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3d2817;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1209;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f4d03f;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="artGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b7355;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#6b5b47;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative Art Elements -->
+  <g transform="translate(300, 150)">
+    <!-- Abstract Art Shape 1 -->
+    <path d="M 0 0 L 80 40 L 60 100 L -20 80 Z" fill="url(#artGradient)" opacity="0.6"/>
+    <path d="M 20 20 L 100 60 L 80 120 L 0 100 Z" fill="url(#accentGradient)" opacity="0.4"/>
+    
+    <!-- Abstract Art Shape 2 -->
+    <path d="M 200 0 Q 250 50 200 100 T 200 0" fill="url(#artGradient)" opacity="0.5"/>
+    <circle cx="200" cy="50" r="30" fill="url(#accentGradient)" opacity="0.3"/>
+    
+    <!-- Brush Stroke Effect -->
+    <ellipse cx="400" cy="80" rx="120" ry="20" fill="url(#accentGradient)" opacity="0.2" transform="rotate(-15 400 80)"/>
+    <ellipse cx="450" cy="120" rx="100" ry="15" fill="url(#artGradient)" opacity="0.3" transform="rotate(20 450 120)"/>
+  </g>
+  
+  <!-- Right Side Art Elements -->
+  <g transform="translate(800, 200)">
+    <!-- Geometric Art -->
+    <polygon points="0,0 60,30 40,90 -20,70" fill="url(#accentGradient)" opacity="0.4"/>
+    <polygon points="100,20 160,50 140,110 80,90" fill="url(#artGradient)" opacity="0.5"/>
+    
+    <!-- Paint Splash -->
+    <circle cx="50" cy="150" r="40" fill="url(#accentGradient)" opacity="0.3"/>
+    <circle cx="70" cy="170" r="25" fill="url(#artGradient)" opacity="0.4"/>
+  </g>
+  
+  <!-- Title -->
+  <text x="600" y="140" font-family="Georgia, serif" font-size="72" font-weight="bold" fill="url(#accentGradient)" text-anchor="middle" opacity="0.95">
+    MANUSFaktur
+  </text>
+  <text x="600" y="200" font-family="Georgia, serif" font-size="48" font-weight="300" fill="rgba(212, 175, 55, 0.9)" text-anchor="middle">
+    Sinntal
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="280" font-family="Georgia, serif" font-size="32" fill="rgba(255, 255, 255, 0.85)" text-anchor="middle" font-style="italic">
+    Kunst &amp; Manufaktur
+  </text>
+  
+  <!-- Quote/Artistic Text -->
+  <text x="600" y="350" font-family="Georgia, serif" font-size="20" fill="rgba(212, 175, 55, 0.7)" text-anchor="middle" font-style="italic">
+    "Kunst ist nicht nur das, was du siehst, sondern auch das, was du andere sehen lässt."
+  </text>
+  
+  <!-- Decorative Line -->
+  <line x1="400" y1="380" x2="800" y2="380" stroke="rgba(212, 175, 55, 0.4)" stroke-width="2"/>
+  
+  <!-- Bottom Accent -->
+  <rect x="0" y="580" width="1200" height="50" fill="rgba(212, 175, 55, 0.1)"/>
+  
+  <!-- Small Decorative Elements -->
+  <circle cx="150" cy="450" r="3" fill="url(#accentGradient)" opacity="0.6"/>
+  <circle cx="1050" cy="450" r="3" fill="url(#accentGradient)" opacity="0.6"/>
+  <circle cx="150" cy="500" r="2" fill="url(#accentGradient)" opacity="0.5"/>
+  <circle cx="1050" cy="500" r="2" fill="url(#accentGradient)" opacity="0.5"/>
+</svg>
+

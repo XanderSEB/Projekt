@@ -1,0 +1,105 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1b4b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#312e81;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="roomGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f3f4f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e5e7eb;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:0.95" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="150" cy="100" r="60" fill="rgba(99,102,241,0.2)"/>
+  <circle cx="1050" cy="550" r="80" fill="rgba(99,102,241,0.15)"/>
+  
+  <!-- Main Card -->
+  <rect x="100" y="80" width="1000" height="515" rx="20" fill="url(#cardGradient)" stroke="rgba(99,102,241,0.3)" stroke-width="2"/>
+  
+  <!-- Header -->
+  <rect x="100" y="80" width="1000" height="90" rx="20" fill="rgba(99,102,241,0.4)"/>
+  <text x="600" y="130" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">Virtuelle Trainingsumgebung</text>
+  <text x="600" y="155" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.9)" text-anchor="middle">Alkoholsucht-Therapie Unterstützung</text>
+  
+  <!-- 3D Room Visualization -->
+  <g transform="translate(150, 200)">
+    <!-- Room floor -->
+    <rect x="0" y="200" width="400" height="200" fill="url(#roomGradient)" opacity="0.8"/>
+    
+    <!-- Room walls -->
+    <polygon points="0,0 400,0 400,200 0,200" fill="#d1d5db" opacity="0.6"/>
+    <polygon points="400,0 500,50 500,250 400,200" fill="#9ca3af" opacity="0.5"/>
+    
+    <!-- Window with sunset -->
+    <rect x="100" y="20" width="200" height="120" fill="#87ceeb" opacity="0.7"/>
+    <circle cx="200" cy="50" r="30" fill="#ffd700" opacity="0.8"/>
+    
+    <!-- Furniture - Sofa -->
+    <rect x="50" y="150" width="120" height="40" rx="5" fill="#1f2937"/>
+    <rect x="50" y="150" width="120" height="20" rx="5" fill="#374151"/>
+    
+    <!-- Coffee table with bottles -->
+    <rect x="200" y="180" width="80" height="50" rx="3" fill="#92400e"/>
+    <circle cx="220" cy="200" r="8" fill="#fbbf24" opacity="0.7"/>
+    <circle cx="240" cy="200" r="8" fill="#fbbf24" opacity="0.7"/>
+    <circle cx="260" cy="200" r="8" fill="#fbbf24" opacity="0.7"/>
+    
+    <!-- Clothes on floor -->
+    <rect x="300" y="220" width="60" height="15" rx="2" fill="#6b7280"/>
+    <rect x="310" y="240" width="50" height="15" rx="2" fill="#4b5563"/>
+    
+    <!-- Laundry basket -->
+    <rect x="320" y="260" width="40" height="50" rx="3" fill="#ffffff" opacity="0.8"/>
+  </g>
+  
+  <!-- Info Panel -->
+  <rect x="600" y="200" width="450" height="300" rx="15" fill="rgba(30,41,59,0.9)" stroke="rgba(99,102,241,0.3)" stroke-width="2"/>
+  
+  <!-- Info Content -->
+  <text x="825" y="240" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">Projekt-Überblick</text>
+  
+  <rect x="620" y="260" width="410" height="35" rx="5" fill="rgba(99,102,241,0.2)"/>
+  <text x="825" y="282" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.9)" text-anchor="middle">🎯 Realistische Alltagssituationen simulieren</text>
+  
+  <rect x="620" y="305" width="410" height="35" rx="5" fill="rgba(16,185,129,0.2)"/>
+  <text x="825" y="327" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.9)" text-anchor="middle">🔄 Wiederholbare Übungsumgebung</text>
+  
+  <rect x="620" y="350" width="410" height="35" rx="5" fill="rgba(245,158,11,0.2)"/>
+  <text x="825" y="372" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.9)" text-anchor="middle">📊 Evaluationsstudie & Usability-Testing</text>
+  
+  <rect x="620" y="395" width="410" height="35" rx="5" fill="rgba(239,68,68,0.2)"/>
+  <text x="825" y="417" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.9)" text-anchor="middle">🧠 Unterstützung der Verhaltenstherapie</text>
+  
+  <rect x="620" y="440" width="410" height="50" rx="5" fill="rgba(99,102,241,0.3)"/>
+  <text x="825" y="460" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle" font-weight="bold">Realismus-Index</text>
+  <text x="825" y="480" font-family="Arial, sans-serif" font-size="11" fill="rgba(255,255,255,0.8)" text-anchor="middle">R = (V + I + B) / 3</text>
+  
+  <!-- Technology Badges -->
+  <rect x="150" y="530" width="140" height="30" rx="15" fill="rgba(99,102,241,0.3)" stroke="rgba(99,102,241,0.5)" stroke-width="1"/>
+  <text x="220" y="549" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#a5b4fc" text-anchor="middle">Unity Engine</text>
+  
+  <rect x="310" y="530" width="100" height="30" rx="15" fill="rgba(34,197,94,0.3)" stroke="rgba(34,197,94,0.5)" stroke-width="1"/>
+  <text x="360" y="549" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#86efac" text-anchor="middle">C#</text>
+  
+  <rect x="430" y="530" width="150" height="30" rx="15" fill="rgba(168,85,247,0.3)" stroke="rgba(168,85,247,0.5)" stroke-width="1"/>
+  <text x="505" y="549" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#c4b5fd" text-anchor="middle">NavMesh / KI</text>
+  
+  <rect x="600" y="530" width="180" height="30" rx="15" fill="rgba(245,158,11,0.3)" stroke="rgba(245,158,11,0.5)" stroke-width="1"/>
+  <text x="690" y="549" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#fcd34d" text-anchor="middle">Post-Processing</text>
+  
+  <rect x="800" y="530" width="150" height="30" rx="15" fill="rgba(239,68,68,0.3)" stroke="rgba(239,68,68,0.5)" stroke-width="1"/>
+  <text x="875" y="549" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#fca5a5" text-anchor="middle">Microsoft Forms</text>
+  
+  <rect x="970" y="530" width="100" height="30" rx="15" fill="rgba(59,130,246,0.3)" stroke="rgba(59,130,246,0.5)" stroke-width="1"/>
+  <text x="1020" y="549" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#93c5fd" text-anchor="middle">Git</text>
+</svg>
+

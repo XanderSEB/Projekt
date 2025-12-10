@@ -1,135 +1,291 @@
-import { motion } from 'framer-motion';
-import { ScrollAnimations } from './ScrollAnimations';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { asaisGroupInfo } from '../data/asaisGroup';
-import { FaBuilding, FaEnvelope, FaGlobe, FaCheckCircle } from 'react-icons/fa';
+import { ScrollAnimations } from './ScrollAnimations';
+import { FaCode, FaMobileAlt, FaGlobe, FaServer, FaCube, FaArrowRight, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 export const ASAISGroup = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  // Zoom-Out Effekt basierend auf Scroll
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0.3]);
+
+  const serviceIcons = [
+    FaCode,
+    FaCode,
+    FaMobileAlt,
+    FaGlobe,
+    FaServer,
+    FaCube,
+  ];
+
   return (
-    <section id="asais" className="py-24 bg-slate-800">
-      <div className="container mx-auto px-6">
-        <ScrollAnimations direction="fade">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold mb-4">
-              <span className="gradient-text">ASAIS</span>{' '}
-              <span className="text-white">Group</span>
-            </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto">
-              Informationen über unsere Firma und unsere Werte
-            </p>
-          </div>
-        </ScrollAnimations>
+    <div ref={containerRef} className="relative min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+      {/* Hero Section mit Zoom-Out Effekt */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background mit Zoom-Out */}
+        <motion.div
+          className="fixed inset-0 pointer-events-none"
+          style={{ scale, opacity }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" />
+        </motion.div>
 
-        <div className="max-w-6xl mx-auto">
-          {/* Main Info Card */}
-          <ScrollAnimations direction="up">
-            <motion.div
-              className="glass rounded-2xl p-8 md:p-12 mb-12"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            className="max-w-5xl mx-auto text-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <motion.h1
+              className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-purple-500 rounded-full flex items-center justify-center">
-                  <FaBuilding size={28} className="text-white" />
-                </div>
-                <h3 className="text-4xl font-bold text-white">{asaisGroupInfo.name}</h3>
-              </div>
-              <p className="text-xl text-white/80 leading-relaxed mb-8">
-                {asaisGroupInfo.description}
-              </p>
+              <span className="text-white">{asaisGroupInfo.hero.headline}</span>
+            </motion.h1>
+            
+            <motion.p
+              className="text-xl md:text-2xl text-white/70 mb-12 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              {asaisGroupInfo.hero.subheadline}
+            </motion.p>
 
-              {/* Contact Info */}
-              <div className="flex flex-wrap gap-6">
-                {asaisGroupInfo.website && (
-                  <motion.a
-                    href={asaisGroupInfo.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-primary-400 hover:text-primary-300 transition-colors"
-                    whileHover={{ x: 5 }}
-                  >
-                    <FaGlobe size={18} />
-                    <span>Website besuchen</span>
-                  </motion.a>
-                )}
-                {asaisGroupInfo.contact?.email && (
-                  <motion.a
-                    href={`mailto:${asaisGroupInfo.contact.email}`}
-                    className="flex items-center gap-2 text-primary-400 hover:text-primary-300 transition-colors"
-                    whileHover={{ x: 5 }}
-                  >
-                    <FaEnvelope size={18} />
-                    <span>{asaisGroupInfo.contact.email}</span>
-                  </motion.a>
-                )}
-              </div>
+            <motion.p
+              className="text-lg text-white/60 mb-12 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              {asaisGroupInfo.description}
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <motion.button
+                className="px-8 py-4 bg-primary-500 text-white rounded-lg font-semibold text-lg hover:bg-primary-600 transition-colors inline-flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {asaisGroupInfo.hero.ctaPrimary}
+                <FaArrowRight />
+              </motion.button>
+              <motion.button
+                className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg font-semibold text-lg hover:bg-white/20 transition-colors border border-white/20"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {asaisGroupInfo.hero.ctaSecondary}
+              </motion.button>
             </motion.div>
-          </ScrollAnimations>
+          </motion.div>
+        </div>
+      </section>
 
-          {/* Services and Values Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Services */}
-            <ScrollAnimations direction="right" delay={0.2}>
-              <motion.div
-                className="glass rounded-2xl p-8"
-                whileHover={{ y: -5 }}
-              >
-                <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                  <span className="w-1 h-8 bg-primary-500 rounded-full" />
-                  Unsere Services
-                </h3>
-                <ul className="space-y-4">
-                  {asaisGroupInfo.services.map((service, index) => (
-                    <motion.li
-                      key={index}
-                      className="flex items-center gap-3 text-white/80 text-lg"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <FaCheckCircle className="text-primary-400 flex-shrink-0" />
-                      <span>{service}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
+      {/* Services Section */}
+      <section className="relative py-24">
+        <div className="container mx-auto px-6">
+            <ScrollAnimations direction="fade">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+                  Was wir liefern
+                </h2>
+                <p className="text-xl text-white/70 max-w-2xl mx-auto">
+                  Entwickelt für Performance. Gestaltet für Wirkung.
+                </p>
+              </div>
             </ScrollAnimations>
 
-            {/* Values */}
-            <ScrollAnimations direction="left" delay={0.2}>
-              <motion.div
-                className="glass rounded-2xl p-8"
-                whileHover={{ y: -5 }}
-              >
-                <h3 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
-                  <span className="w-1 h-8 bg-purple-500 rounded-full" />
-                  Unsere Werte
-                </h3>
-                <ul className="space-y-4">
-                  {asaisGroupInfo.values.map((value, index) => (
-                    <motion.li
-                      key={index}
-                      className="flex items-center gap-3 text-white/80 text-lg"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <FaCheckCircle className="text-purple-400 flex-shrink-0" />
-                      <span>{value}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            </ScrollAnimations>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {asaisGroupInfo.services.map((service, index) => {
+              const Icon = serviceIcons[index] || FaCode;
+              return (
+                <ScrollAnimations key={index} direction="up" delay={index * 0.1}>
+                  <motion.div
+                    className="glass rounded-2xl p-8 h-full flex flex-col"
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-purple-500 rounded-xl flex items-center justify-center mb-6">
+                      <Icon size={28} className="text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4">
+                      {service.title}
+                    </h3>
+                    <p className="text-white/70 leading-relaxed flex-grow">
+                      {service.description}
+                    </p>
+                  </motion.div>
+                </ScrollAnimations>
+              );
+            })}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Portfolio Section - Platzhalter */}
+      {asaisGroupInfo.projects && asaisGroupInfo.projects.length > 0 && (
+        <section className="relative py-24 bg-slate-900/50">
+          <div className="container mx-auto px-6">
+            <ScrollAnimations direction="fade">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+                  Unsere Projekte
+                </h2>
+                <p className="text-xl text-white/70 max-w-2xl mx-auto">
+                  Entdecken Sie unsere neuesten Projekte und Case Studies
+                </p>
+              </div>
+            </ScrollAnimations>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+              {asaisGroupInfo.projects.map((project, index) => (
+                <ScrollAnimations key={project.id} direction="up" delay={index * 0.1}>
+                  <motion.div
+                    className="glass rounded-2xl overflow-hidden h-full flex flex-col"
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {project.imageUrl && (
+                      <div className="w-full h-64 bg-gradient-to-br from-primary-500/20 to-purple-500/20 relative overflow-hidden">
+                        <img 
+                          src={project.imageUrl} 
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="p-8 flex-grow flex flex-col">
+                      <h3 className="text-2xl font-bold text-white mb-3">
+                        {project.title}
+                      </h3>
+                      <p className="text-white/80 mb-4 leading-relaxed">
+                        {project.description}
+                      </p>
+                      
+                      {project.longDescription && (
+                        <p className="text-white/70 mb-6 leading-relaxed text-sm">
+                          {project.longDescription}
+                        </p>
+                      )}
+
+                      {/* Technologien */}
+                      <div className="mb-6">
+                        <h4 className="text-sm font-semibold text-white/90 mb-3 uppercase tracking-wide">
+                          Technologien
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {project.technologies.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-3 py-1.5 bg-primary-500/20 text-primary-300 rounded-full text-xs border border-primary-500/30"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Vorteile für Kunden */}
+                      {project.benefits && project.benefits.length > 0 && (
+                        <div className="mb-6">
+                          <h4 className="text-sm font-semibold text-white/90 mb-3 uppercase tracking-wide">
+                            Vorteile
+                          </h4>
+                          <ul className="space-y-2">
+                            {project.benefits.map((benefit, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-white/70 text-sm">
+                                <span className="text-primary-400 mt-1">✓</span>
+                                <span>{benefit}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Link Button */}
+                      {project.link && (
+                        <motion.a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-auto inline-flex items-center gap-2 px-6 py-3 bg-primary-500/20 hover:bg-primary-500/30 text-primary-300 rounded-lg text-sm font-semibold border border-primary-500/30 transition-colors w-fit"
+                          whileHover={{ scale: 1.05, x: 2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <FaGlobe size={14} />
+                          Website besuchen
+                        </motion.a>
+                      )}
+                    </div>
+                  </motion.div>
+                </ScrollAnimations>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Contact Section */}
+      <section className="relative py-24">
+        <div className="container mx-auto px-6">
+            <ScrollAnimations direction="fade">
+              <div className="max-w-4xl mx-auto glass rounded-2xl p-12 text-center">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Lassen Sie uns über Ihr nächstes Projekt sprechen
+                </h2>
+                <p className="text-xl text-white/70 mb-8">
+                  Kontaktieren Sie uns für eine technische Beratung.
+                </p>
+                
+                <div className="flex flex-col md:flex-row gap-6 justify-center">
+                  <motion.a
+                    href={`mailto:${asaisGroupInfo.contact.email}`}
+                    className="flex items-center gap-3 px-6 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition-colors border border-white/20"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FaEnvelope size={20} />
+                    <div className="text-left">
+                      <div className="text-sm text-white/60">E-Mail-Anfragen</div>
+                      <div className="font-semibold">{asaisGroupInfo.contact.email}</div>
+                    </div>
+                  </motion.a>
+                  
+                  {asaisGroupInfo.contact.phone && (
+                    <motion.a
+                      href={`tel:${asaisGroupInfo.contact.phone}`}
+                      className="flex items-center gap-3 px-6 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition-colors border border-white/20"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FaPhone size={20} />
+                      <div className="text-left">
+                        <div className="text-sm text-white/60">Telefon-Support</div>
+                        <div className="font-semibold">{asaisGroupInfo.contact.phone}</div>
+                      </div>
+                    </motion.a>
+                  )}
+                </div>
+              </div>
+            </ScrollAnimations>
+        </div>
+      </section>
+    </div>
   );
 };
-
-
-
-
-

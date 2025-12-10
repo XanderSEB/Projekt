@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { projects, ProjectType } from '../data/projects';
 import { FaYoutube, FaExternalLinkAlt, FaCircle, FaBlog, FaMobileAlt, FaGlobe, FaCode } from 'react-icons/fa';
@@ -61,6 +60,7 @@ const getActionButtons = (project: typeof projects[0]) => {
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-2 px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg text-xs border border-red-500/30 transition-colors"
+        style={{ pointerEvents: 'auto' }}
         whileHover={{ scale: 1.05, x: 2 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -71,17 +71,30 @@ const getActionButtons = (project: typeof projects[0]) => {
   }
 
   if (project.blogUrl) {
+    // Speichere Scroll-Position vor Navigation
+    const handleBlogClick = (e: React.MouseEvent) => {
+      // Speichere die aktuelle Scroll-Position
+      const scrollPosition = window.scrollY;
+      sessionStorage.setItem('projectsScrollPosition', scrollPosition.toString());
+      
+      // Öffne in neuem Tab
+      window.open(project.blogUrl, '_blank');
+      e.preventDefault();
+    };
+
     buttons.push(
-      <Link key="blog" to={project.blogUrl}>
-        <motion.div
-          className="flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg text-xs border border-purple-500/30 transition-colors cursor-pointer"
-          whileHover={{ scale: 1.05, x: 2 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaBlog size={12} />
-          Blog lesen
-        </motion.div>
-      </Link>
+      <motion.a
+        key="blog"
+        href={project.blogUrl}
+        onClick={handleBlogClick}
+        className="flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg text-xs border border-purple-500/30 transition-colors cursor-pointer"
+        style={{ pointerEvents: 'auto' }}
+        whileHover={{ scale: 1.05, x: 2 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <FaBlog size={12} />
+        Blog lesen
+      </motion.a>
     );
   }
 
@@ -93,6 +106,7 @@ const getActionButtons = (project: typeof projects[0]) => {
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-2 px-4 py-2 bg-green-600/20 hover:bg-green-600/30 text-green-300 rounded-lg text-xs border border-green-500/30 transition-colors"
+        style={{ pointerEvents: 'auto' }}
         whileHover={{ scale: 1.05, x: 2 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -110,6 +124,7 @@ const getActionButtons = (project: typeof projects[0]) => {
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 rounded-lg text-xs border border-blue-500/30 transition-colors"
+        style={{ pointerEvents: 'auto' }}
         whileHover={{ scale: 1.05, x: 2 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -138,12 +153,12 @@ const Tab = ({ project, index, scrollProgress, isActive, activeIndex, totalTabs 
   
   const easedProgress = smoothEase(tabProgress);
   
+  // Berechne slideProgress außerhalb, damit wir es für pointer-events verwenden können
+  const slideInStart = index * (1.5 / totalTabs); // 1.5x länger für mehr Abstand
+  const slideInEnd = slideInStart + (0.8 / totalTabs); // 80% des Bereichs zum Einsliden
+  const slideProgress = Math.max(0, Math.min(1, (scrollProgress - slideInStart) / (slideInEnd - slideInStart)));
+  
   const getTabTransform = () => {
-    // Berechne, wann dieser Tab von links hineinsliden soll
-    // Größerer Bereich für längere Abstände zwischen Slides
-    const slideInStart = index * (1.5 / totalTabs); // 1.5x länger für mehr Abstand
-    const slideInEnd = slideInStart + (0.8 / totalTabs); // 80% des Bereichs zum Einsliden
-    const slideProgress = Math.max(0, Math.min(1, (scrollProgress - slideInStart) / (slideInEnd - slideInStart)));
     
     // X-Position: Startet von links außerhalb und slidet hinein, dann zentriert
     // Verwende smooth ease für sehr flüssiges slide-in
@@ -224,8 +239,16 @@ const Tab = ({ project, index, scrollProgress, isActive, activeIndex, totalTabs 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transform.x, transform.y, transform.scale, transform.rotate, transform.opacity]);
 
+  // Bestimme pointer-events basierend auf aktivem Status und slideProgress
+  // Nur der aktive Tab sollte klickbar sein
+  const isTabActive = Math.abs(index - activeIndex) < 0.5 && slideProgress > 0.1;
+  const pointerEvents = isTabActive ? 'auto' : 'none';
+
   return (
-    <div className="absolute left-1/2 -translate-x-1/2 w-full max-w-7xl">
+    <div 
+      className="absolute left-1/2 -translate-x-1/2 w-full max-w-7xl"
+      style={{ pointerEvents }}
+    >
       <motion.div
         className="w-full"
         style={{
@@ -235,12 +258,8 @@ const Tab = ({ project, index, scrollProgress, isActive, activeIndex, totalTabs 
           rotate,
           opacity,
           zIndex: transform.zIndex,
+          pointerEvents,
         }}
-      whileHover={isActive && transform.x >= 0 ? { 
-        y: transform.y - 10, 
-        scale: transform.scale * 1.02,
-        filter: 'brightness(1.1)',
-      } : {}}
       transition={{
         type: 'spring',
         stiffness: 50,
@@ -282,30 +301,39 @@ const Tab = ({ project, index, scrollProgress, isActive, activeIndex, totalTabs 
         </div>
 
         {/* Content Preview */}
-        <div className="p-8" style={{ background: 'rgb(2, 6, 23)' }}>
+        <div className="p-6" style={{ background: 'rgb(2, 6, 23)', pointerEvents: 'auto' }}>
           {/* Project Image/Preview */}
-          <div className="w-full h-80 md:h-96 bg-gradient-to-br from-primary-500/20 to-purple-500/20 rounded-xl mb-6 flex items-center justify-center overflow-hidden relative group">
-            {getProjectIcon(project)}
+          <div className="w-full h-48 md:h-56 bg-gradient-to-br from-primary-500/20 to-purple-500/20 rounded-xl mb-4 flex items-center justify-center overflow-hidden relative group">
+            {project.imageUrl ? (
+              <img 
+                src={project.imageUrl.startsWith('http') ? project.imageUrl : project.imageUrl}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              getProjectIcon(project)
+            )}
           </div>
 
           {/* Description */}
-          <div className="mb-6">
-            <p className="text-white/70 mb-3 text-base md:text-lg leading-relaxed line-clamp-3">
+          <div className="mb-4">
+            <p className="text-white/70 mb-2 text-sm md:text-base leading-relaxed line-clamp-2">
               {project.description}
             </p>
             {project.longDescription && (
-              <p className="text-white/60 text-sm leading-relaxed line-clamp-3">
+              <p className="text-white/60 text-xs leading-relaxed line-clamp-2">
                 {project.longDescription}
               </p>
             )}
           </div>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-4">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-4 py-1.5 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30"
+                className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-xs border border-primary-500/30"
               >
                 {tag}
               </span>
@@ -313,12 +341,12 @@ const Tab = ({ project, index, scrollProgress, isActive, activeIndex, totalTabs 
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-3 mb-6">
+          <div className="flex flex-wrap gap-2 mb-4" style={{ pointerEvents: 'auto' }}>
             {getActionButtons(project)}
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between text-xs text-white/50 pt-4 border-t border-white/10">
+          <div className="flex items-center justify-between text-xs text-white/50 pt-3 border-t border-white/10">
             <span>{new Date(project.date).toLocaleDateString('de-DE')}</span>
             {project.featured && (
               <span className="px-2 py-1 bg-primary-500/30 text-primary-300 rounded text-xs">
@@ -468,29 +496,29 @@ export const Projects = () => {
           />
 
           <div className="container mx-auto px-6 relative z-10 h-full flex flex-col">
-            {/* Header - normale Größe */}
+            {/* Header - kompakter */}
             <motion.div
-              className="text-center pt-24 pb-8"
+              className="text-center pt-16 pb-4"
               initial={{ opacity: 0, y: -50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-5xl md:text-6xl font-bold mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold mb-2">
                 <span className="gradient-text">Meine</span>{' '}
                 <span className="text-white">Projekte</span>
               </h2>
-              <p className="text-xl text-white/70 max-w-2xl mx-auto">
+              <p className="text-lg text-white/70 max-w-2xl mx-auto">
                 Eine Auswahl meiner besten Projekte und Arbeiten
               </p>
-              <p className="text-sm text-white/50 mt-4">
+              <p className="text-xs text-white/50 mt-2">
                 Scrollen Sie, um durch die Projekte zu navigieren
               </p>
             </motion.div>
 
-            {/* Tab Stack Container - größer und zentriert */}
-            <div className="relative flex-1 flex items-center justify-center py-8">
-              <div className="relative w-full max-w-7xl h-[900px] md:h-[1000px] lg:h-[1100px] mx-auto flex items-center justify-center">
+            {/* Tab Stack Container - angepasste Höhe für Bildschirm */}
+            <div className="relative flex-1 flex items-center justify-center py-4">
+              <div className="relative w-full max-w-7xl h-[600px] md:h-[700px] lg:h-[750px] mx-auto flex items-center justify-center">
                 <div className="relative w-full h-full">
                   {projects.map((project, index) => (
                     <Tab
@@ -509,7 +537,7 @@ export const Projects = () => {
 
             {/* Scroll Indicator */}
             <motion.div
-              className="pb-16 flex justify-center"
+              className="pb-8 flex justify-center"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}

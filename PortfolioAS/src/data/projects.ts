@@ -78,18 +78,6 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: '8',
-    title: 'Desktop Applikation mit Electron',
-    description: 'Ein Blog-Post über die Entwicklung einer Desktop-Anwendung mit Electron. Erfahren Sie mehr über Cross-Platform-Entwicklung und native Integration.',
-    longDescription: 'Dieser Blog-Post beschreibt die Entwicklung einer professionellen Desktop-Anwendung mit Electron. Ich teile meine Erfahrungen mit der Integration von nativen Features, Performance-Optimierung und dem Packaging-Prozess für verschiedene Betriebssysteme. Außerdem zeige ich, wie ich bestimmte Herausforderungen gelöst habe und welche Tools ich verwendet habe.',
-    type: 'blog',
-    blogUrl: '/blog/desktop-applikation-electron',
-    appUrl: 'https://github.com/example/desktop-app',
-    websiteUrl: 'https://example-app.com',
-    tags: ['Electron', 'Desktop', 'Cross-Platform', 'Professional', 'Native'],
-    date: '2024-06-18',
-  },
-  {
     id: '9',
     title: 'UI/UX Design Prinzipien für moderne Web-Apps',
     description: 'Ein umfassender Blog-Post über UI/UX Design-Prinzipien und wie man benutzerfreundliche Web-Anwendungen erstellt. Lernen Sie aus meinen Erfahrungen im Design-Prozess.',

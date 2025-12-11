@@ -75,7 +75,8 @@ export const asaisGroupInfo: ASAISGroupInfo = {
       title: 'Restaurant 1992 - Moderne Restaurant-Website',
       description: 'Eine vollständige Restaurant-Website mit Online-Speisekarte, Event-Buchungssystem und Reservierungsfunktion. Entwickelt für ein traditionelles Restaurant in Zweiflingen mit Fokus auf kulinarische Exzellenz und Kundenerlebnis.',
       longDescription: 'Die Website für Restaurant 1992 bietet Gästen eine umfassende digitale Präsenz mit wöchentlich wechselnder Speisekarte, Event-Buchungsmöglichkeiten und detaillierten Informationen über Öffnungszeiten und Angebote. Die intuitive Navigation ermöglicht es Besuchern, schnell Reservierungen vorzunehmen und Events anzufragen. Besonders hervorzuheben ist die Integration des ARIES BBQ Konzepts und die Präsentation der kulinarischen Philosophie von Chefkoch Kenny.',
-      technologies: ['Webflow', 'Responsive Design', 'CMS', 'Event Management', 'Online Reservierung'],
+      imageUrl: '/images/restaurant1992.png',
+      technologies: ['WordPress', 'Elementor', 'Responsive Design', 'CMS', 'Event Management', 'Online Reservierung'],
       benefits: [
         'Steigerung der Online-Sichtbarkeit und Kundenakquise',
         'Einfache Verwaltung von Speisekarten und Events',
@@ -91,7 +92,7 @@ export const asaisGroupInfo: ASAISGroupInfo = {
       title: 'Viktoria Schwab Nails - Nagelstudio Website',
       description: 'Eine elegante und moderne Website für ein Nagelstudio mit Galerie, Service-Präsentation und direkter WhatsApp-Terminbuchung. Fokus auf visuelle Präsentation der Nagelkunst und einfache Kundenkommunikation.',
       longDescription: 'Die Website für Viktoria Schwab Nails präsentiert die Dienstleistungen des Nagelstudios in einer ansprechenden, benutzerfreundlichen Form. Mit einer umfangreichen Bildergalerie, detaillierten Service-Beschreibungen und direkter WhatsApp-Integration für Terminbuchungen bietet die Website eine nahtlose Customer Journey. Die Design-Ästhetik spiegelt die Qualität und Kreativität des Nagelstudios wider und schafft Vertrauen bei potenziellen Kunden.',
-      imageUrl: '/images/viktoria-schwab-nails-thumbnail.svg',
+      imageUrl: '/images/viktoriaNails.png',
       technologies: ['Webflow', 'Responsive Design', 'CMS', 'WhatsApp Integration', 'Galerie-System'],
       benefits: [
         'Professionelle Präsentation der Nagelkunst und Services',
@@ -108,7 +109,7 @@ export const asaisGroupInfo: ASAISGroupInfo = {
       title: 'MANUSFaktur Sinntal - Kunst & Manufaktur Website',
       description: 'Eine künstlerische Website für eine Manufaktur mit Fokus auf Kunst, Design und kreative Projekte. Entwickelt für Manuella Neubauer zur Präsentation ihrer künstlerischen Arbeiten und Dienstleistungen.',
       longDescription: 'Die MANUSFaktur Website bietet eine Plattform für die Präsentation künstlerischer Arbeiten und kreativer Projekte. Mit einem minimalistischen, eleganten Design wird die Kunst von Manuella Neubauer in den Vordergrund gestellt. Die Website ermöglicht es Besuchern, die verschiedenen künstlerischen Bereiche zu erkunden und Kontakt aufzunehmen. Besonders hervorzuheben ist die visuelle Präsentation der Kunstwerke und die intuitive Navigation durch die verschiedenen Bereiche.',
-      imageUrl: '/images/manusfaktur-sinntal-thumbnail.svg',
+      imageUrl: '/images/manusfaktur.png',
       technologies: ['Webflow', 'Responsive Design', 'CMS', 'Portfolio-Galerie', 'Kontaktformular'],
       benefits: [
         'Professionelle Präsentation künstlerischer Arbeiten',

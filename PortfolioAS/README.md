@@ -9,7 +9,7 @@ Eine moderne Portfolio-Webseite im Stil von SendPotion, erstellt mit React, Type
 - ✨ **Scroll-Animationen** - Dynamische Animationen beim Scrollen
 - 📱 **Responsive Design** - Optimiert für Mobile, Tablet und Desktop
 - 🎯 **Interaktive Elemente** - Hover-Effekte und 3D-Transformationen
-- 🚀 **Railway Ready** - Vorbereitet für Deployment auf Railway
+- 🚀 **Vercel Ready** - Vorbereitet für Deployment auf Vercel
 
 ## Tech Stack
 
@@ -45,7 +45,7 @@ PortfolioAS/
 │   ├── data/            # Datenstrukturen
 │   └── styles/          # Globale Styles
 ├── public/              # Statische Assets
-└── railway.json         # Railway Deployment Config
+└── vercel.json          # Vercel Deployment Config
 ```
 
 ## Sektionen
@@ -64,13 +64,50 @@ Die Platzhalter-Daten können in folgenden Dateien angepasst werden:
 - `src/data/education.ts` - Bildung
 - `src/data/asaisGroup.ts` - ASAIS Group Informationen
 
-## Deployment auf Railway
+## Deployment auf Vercel
 
-1. Projekt auf GitHub pushen
-2. Railway-Projekt erstellen
-3. GitHub-Repository verbinden
-4. Railway erkennt automatisch die `railway.json` Konfiguration
-5. Deployment startet automatisch
+### Voraussetzungen
+- GitHub Account
+- Vercel Account (kostenlos auf [vercel.com](https://vercel.com))
+
+### Schritt-für-Schritt Anleitung
+
+1. **Projekt auf GitHub pushen**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin <dein-github-repo-url>
+   git push -u origin main
+   ```
+
+2. **Vercel Account erstellen**
+   - Gehe zu [vercel.com](https://vercel.com)
+   - Melde dich mit deinem GitHub-Account an
+
+3. **Neues Projekt erstellen**
+   - Klicke auf "New Project"
+   - Wähle dein GitHub-Repository aus
+   - Vercel erkennt automatisch Vite und die `vercel.json` Konfiguration
+
+4. **Deployment starten**
+   - Klicke auf "Deploy"
+   - Vercel baut und deployed automatisch dein Projekt
+   - Nach erfolgreichem Build erhältst du eine URL (z.B. `portfolio-as.vercel.app`)
+
+5. **Custom Domain hinzufügen (optional)**
+   - Gehe zu Project Settings → Domains
+   - Füge deine Domain hinzu und folge den DNS-Anweisungen
+
+### Automatische Deployments
+- Jeder Push zu `main` Branch deployed automatisch
+- Pull Requests erstellen Preview-Deployments
+- Alle Deployments haben automatisch HTTPS
+
+### Build-Informationen
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+- **Node Version**: Automatisch erkannt (empfohlen: 18.x oder höher)
 
 ## Anpassungen
 

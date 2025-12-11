@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
-import { projects, ProjectType } from '../data/projects';
-import { FaYoutube, FaExternalLinkAlt, FaCircle, FaBlog, FaMobileAlt, FaGlobe, FaCode } from 'react-icons/fa';
+import { projects } from '../data/projects';
+import { FaYoutube, FaCircle, FaBlog, FaMobileAlt, FaGlobe } from 'react-icons/fa';
 
 interface TabProps {
   project: typeof projects[0];
@@ -137,21 +137,13 @@ const getActionButtons = (project: typeof projects[0]) => {
   return buttons.length > 0 ? buttons : null;
 };
 
-const Tab = ({ project, index, scrollProgress, isActive, activeIndex, totalTabs }: TabProps) => {
-  // Berechne Position basierend auf Scroll-Progress
-  // Jeder Tab hat einen eigenen Progress-Bereich
-  const tabStart = index / totalTabs;
-  const tabEnd = (index + 1) / totalTabs;
-  const tabProgress = Math.max(0, Math.min(1, (scrollProgress - tabStart) / (tabEnd - tabStart)));
-  
+const Tab = ({ project, index, scrollProgress, isActive: _isActive, activeIndex, totalTabs }: TabProps) => {
   // Smooth Easing Function (ease-in-out cubic)
   const smoothEase = (t: number) => {
     return t < 0.5 
       ? 4 * t * t * t 
       : 1 - Math.pow(-2 * t + 2, 3) / 2;
   };
-  
-  const easedProgress = smoothEase(tabProgress);
   
   // Berechne slideProgress außerhalb, damit wir es für pointer-events verwenden können
   const slideInStart = index * (1.5 / totalTabs); // 1.5x länger für mehr Abstand

@@ -3,10 +3,12 @@ import { HomePage } from './pages/HomePage';
 import { ASAISGroupPage } from './pages/ASAISGroupPage';
 import { BlogPostPage } from './pages/BlogPostPage';
 import { SkillsetPage } from './pages/SkillsetPage';
+import { ScrollToTop } from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/asais-group" element={<ASAISGroupPage />} />

@@ -140,7 +140,7 @@ export const Techstack = () => {
           initial="hidden"
           animate={hasIntersected ? 'visible' : 'hidden'}
         >
-          {techStack.map((tech, index) => (
+          {techStack.map((tech) => (
             <motion.div
               key={tech.name}
               variants={itemVariants}

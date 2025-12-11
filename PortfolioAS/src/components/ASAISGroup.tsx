@@ -285,10 +285,10 @@ interface ProjectCardProps {
 const ProjectCard = ({
   project,
   index,
-  scrollProgress,
+  scrollProgress: _scrollProgress,
   isActive,
-  activeIndex,
-  totalProjects,
+  activeIndex: _activeIndex,
+  totalProjects: _totalProjects,
 }: ProjectCardProps) => {
   // Vereinfachte Logik: Alle Projekte sind immer sichtbar, nur leichte Animationen
   // Leichte Hover/Active Animation

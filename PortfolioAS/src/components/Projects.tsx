@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
 import { projects } from '../data/projects';
-import { FaYoutube, FaCircle, FaBlog, FaMobileAlt, FaGlobe } from 'react-icons/fa';
+import { FaYoutube, FaCircle, FaBlog, FaMobileAlt, FaGlobe, FaChevronDown } from 'react-icons/fa';
 
 interface TabProps {
   project: typeof projects[0];
@@ -358,6 +358,9 @@ export const Projects = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const smoothProgressRef = useRef(0);
+  const [showScrollHint, setShowScrollHint] = useState(false);
+  const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const lastScrollTimeRef = useRef<number>(Date.now());
 
   // Scroll Progress Tracking
   const { scrollYProgress } = useScroll({
@@ -445,16 +448,80 @@ export const Projects = () => {
     return () => unsubscribe();
   }, [progress]);
 
+  // Scroll-Hint: Erscheint nach 5 Sekunden Inaktivität
+  useEffect(() => {
+    const checkInactivity = () => {
+      const now = Date.now();
+      const timeSinceLastScroll = now - lastScrollTimeRef.current;
+      
+      if (timeSinceLastScroll >= 5000) {
+        setShowScrollHint(true);
+      } else {
+        setShowScrollHint(false);
+        // Setze Timer neu
+        if (inactivityTimerRef.current) {
+          clearTimeout(inactivityTimerRef.current);
+        }
+        inactivityTimerRef.current = setTimeout(() => {
+          setShowScrollHint(true);
+        }, 5000);
+      }
+    };
+
+    const handleScroll = () => {
+      lastScrollTimeRef.current = Date.now();
+      setShowScrollHint(false);
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+      inactivityTimerRef.current = setTimeout(() => {
+        setShowScrollHint(true);
+      }, 5000);
+    };
+
+    const handleTouch = () => {
+      lastScrollTimeRef.current = Date.now();
+      setShowScrollHint(false);
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+      inactivityTimerRef.current = setTimeout(() => {
+        setShowScrollHint(true);
+      }, 5000);
+    };
+
+    // Initialer Timer
+    inactivityTimerRef.current = setTimeout(() => {
+      setShowScrollHint(true);
+    }, 5000);
+
+    // Event Listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('touchstart', handleTouch, { passive: true });
+    window.addEventListener('touchmove', handleTouch, { passive: true });
+    window.addEventListener('wheel', handleScroll, { passive: true });
+
+    return () => {
+      if (inactivityTimerRef.current) {
+        clearTimeout(inactivityTimerRef.current);
+      }
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchstart', handleTouch);
+      window.removeEventListener('touchmove', handleTouch);
+      window.removeEventListener('wheel', handleScroll);
+    };
+  }, []);
+
   return (
     <section 
       id="projects" 
       className="relative bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900"
     >
-      {/* Scroll Container für Animation - noch größere Abstände */}
+      {/* Scroll Container für Animation - erhöhte Scrollgeschwindigkeit */}
       <div 
         ref={containerRef}
         className="relative"
-        style={{ height: `${projects.length * 300}vh` }}
+        style={{ height: `${projects.length * 200}vh` }}
       >
         {/* Background with texture - sticky */}
         <div className="sticky top-0 h-screen overflow-hidden">
@@ -525,6 +592,41 @@ export const Projects = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Scroll Hint Symbol */}
+              <AnimatePresence>
+                {showScrollHint && (
+                  <motion.div
+                    className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-50 pointer-events-none"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <motion.div
+                      className="flex flex-col items-center gap-3 text-white/60"
+                      animate={{ y: [0, 10, 0] }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <div className="text-sm font-medium mb-1">Weiter scrollen</div>
+                      <motion.div
+                        animate={{ y: [0, 8, 0] }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <FaChevronDown size={24} className="text-primary-400" />
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Scroll Indicator */}

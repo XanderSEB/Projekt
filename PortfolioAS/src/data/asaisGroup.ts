@@ -4,6 +4,15 @@ export interface Service {
   icon?: string;
 }
 
+export interface PricingPackage {
+  title: string;
+  price: string;
+  period?: string;
+  description: string;
+  features: string[];
+  highlight?: boolean;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -26,6 +35,7 @@ export interface ASAISGroupInfo {
   };
   description: string;
   services: Service[];
+  pricing?: PricingPackage[];
   projects?: Project[];
   contact: {
     email: string;
@@ -38,35 +48,51 @@ export const asaisGroupInfo: ASAISGroupInfo = {
   name: 'ASAIS Group',
   hero: {
     headline: 'Minimale digitale Lösungen, maximale Wirkung',
-    subheadline: 'Web-, Mobile- und 3D-Erlebnisse für Unternehmen',
-    ctaPrimary: 'Demo anfordern',
-    ctaSecondary: 'Services ansehen',
+    subheadline: 'IT-Beratung, Webentwicklung und digitale Lösungen für Ihr Unternehmen',
+    ctaPrimary: 'Kontakt aufnehmen',
+    ctaSecondary: 'Preise ansehen',
   },
-  description: 'Spezialisten für Web- und App-Entwicklung, IT-Support und interaktive 3D-Lösungen. Minimalistisches Design, robuste Performance. Starten Sie Ihr Projekt mit einem bewährten Technologiepartner.',
-  services: [
+  description: 'Professionelle IT-Beratung und Webentwicklung für Unternehmen. Von der Umsetzung spezieller Software wie Gloria Food für Restaurants bis hin zu SEO-Optimierung und Website-Erstellung. Wir bieten maßgeschneiderte digitale Lösungen für Ihr Business.',
+  services: [],
+  pricing: [
     {
-      title: 'Webapp Entwicklung',
-      description: 'Personalisierte Software für vielseitige Geschäftsbereiche. Skalierbare, sichere Web-Apps mit hoher Performance, modernen Frameworks und nahtloser API-Integration.',
+      title: 'IT-Beratung & Support',
+      price: '79',
+      period: 'pro Monat',
+      description: 'Umfassende IT-Beratung und Support für Ihr Unternehmen',
+      features: [
+        'Umsetzung spezieller Software (z.B. Gloria Food für Restaurants)',
+        'SEO-Optimierung und Webauftritt',
+        'Website-Bearbeitung und Wartung',
+        'Technischer Support',
+        'Beratung zu digitalen Lösungen',
+      ],
+      highlight: true,
     },
     {
-      title: 'Individuelle Web-Plattformen',
-      description: 'Skalierbare, sichere Web-Apps mit hoher Performance, modernen Frameworks und nahtloser API-Integration. Maßgeschneidert auf Ihre Geschäftsanforderungen.',
+      title: 'Website-Erstellung',
+      price: 'ab 500',
+      period: 'Einmalig',
+      description: 'Professionelle Website-Erstellung nach Ihren Wünschen',
+      features: [
+        'Onepager-Websites',
+        'Jegliche Technologie möglich',
+        'Individuelle Gestaltung',
+        'Responsive Design',
+        'SEO-Grundoptimierung',
+      ],
     },
     {
-      title: 'Mobile Apps',
-      description: 'Plattformübergreifende Mobile-Lösungen für iOS und Android. Schnell, intuitiv und für jedes Gerät optimiert.',
-    },
-    {
-      title: 'Websites',
-      description: 'Minimale, responsive Websites mit schnellen Ladezeiten, interaktiven 3D-Elementen und starker Barrierefreiheit sowie SEO.',
-    },
-    {
-      title: 'IT-Support & Consulting',
-      description: 'Proaktives Monitoring, Fehlerbehebung und Support für Ihre digitale Infrastruktur. Zuverlässig und sicher.',
-    },
-    {
-      title: '3D & Interaktive Medien',
-      description: 'Begeistern Sie Nutzer mit interaktiven 3D-Modellen und Animationen. Wir integrieren moderne Medien, um Produkte zu präsentieren und Storytelling zu verbessern.',
+      title: 'Individuelle Lösungen',
+      price: 'Auf Anfrage',
+      description: 'Maßgeschneiderte Lösungen für Ihre speziellen Anforderungen',
+      features: [
+        'Mehrseitige Websites',
+        'E-Commerce-Lösungen',
+        'Custom Web-Apps',
+        'Weitere Varianten nach Absprache',
+        'Persönliche Beratung',
+      ],
     },
   ],
   projects: [
@@ -123,8 +149,8 @@ export const asaisGroupInfo: ASAISGroupInfo = {
     },
   ],
   contact: {
-    email: 'contact@asaisgroup.com',
-    phone: '+1 (555) 000-0000',
+    email: 'as-productions@outlook.de',
+    phone: '01723542227',
   },
   website: 'https://asais-group.webflow.io',
 };

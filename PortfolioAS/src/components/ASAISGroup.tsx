@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { asaisGroupInfo, Project } from '../data/asaisGroup';
 import { ScrollAnimations } from './ScrollAnimations';
-import { FaCode, FaMobileAlt, FaGlobe, FaServer, FaCube, FaArrowRight, FaEnvelope, FaPhone, FaCheckCircle } from 'react-icons/fa';
+import { FaArrowRight, FaEnvelope, FaPhone, FaCheckCircle, FaHeadset, FaLaptopCode, FaRocket, FaGlobe } from 'react-icons/fa';
 
 export const ASAISGroup = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,14 +15,7 @@ export const ASAISGroup = () => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1, 0.3]);
 
-  const serviceIcons = [
-    FaCode,
-    FaCode,
-    FaMobileAlt,
-    FaGlobe,
-    FaServer,
-    FaCube,
-  ];
+  const pricingIcons = [FaHeadset, FaLaptopCode, FaRocket];
 
   return (
     <div ref={containerRef} className="relative min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
@@ -97,46 +90,94 @@ export const ASAISGroup = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="relative py-24">
-        <div className="container mx-auto px-4 sm:px-6">
+      {/* Pricing Section */}
+      {asaisGroupInfo.pricing && asaisGroupInfo.pricing.length > 0 && (
+        <section className="relative py-24">
+          <div className="container mx-auto px-4 sm:px-6">
             <ScrollAnimations direction="fade">
               <div className="text-center mb-16">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white break-words px-4">
-                  Was wir liefern
+                  Unsere Preispakete
                 </h2>
                 <p className="text-lg sm:text-xl md:text-2xl text-white/70 max-w-2xl mx-auto break-words px-4">
-                  Entwickelt für Performance. Gestaltet für Wirkung.
+                  Transparente Preise für Ihre digitalen Bedürfnisse
                 </p>
               </div>
             </ScrollAnimations>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {asaisGroupInfo.services.map((service, index) => {
-              const Icon = serviceIcons[index] || FaCode;
-              return (
-                <ScrollAnimations key={index} direction="up" delay={index * 0.1}>
-                  <motion.div
-                    className="glass rounded-2xl p-4 sm:p-6 md:p-8 h-full flex flex-col overflow-hidden"
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-purple-500 rounded-xl flex items-center justify-center mb-6">
-                      <Icon size={28} className="text-white" />
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 break-words">
-                      {service.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-white/70 leading-relaxed flex-grow break-words">
-                      {service.description}
-                    </p>
-                  </motion.div>
-                </ScrollAnimations>
-              );
-            })}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              {asaisGroupInfo.pricing.map((packageItem, index) => {
+                const Icon = pricingIcons[index] || FaRocket;
+                return (
+                  <ScrollAnimations key={index} direction="up" delay={index * 0.1}>
+                    <motion.div
+                      className={`glass rounded-2xl p-6 sm:p-8 md:p-10 h-full flex flex-col overflow-hidden relative ${
+                        packageItem.highlight 
+                          ? 'border-2 border-primary-500/50 bg-gradient-to-br from-primary-500/10 to-purple-500/10' 
+                          : ''
+                      }`}
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {packageItem.highlight && (
+                        <div className="absolute top-4 right-4 px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-xs font-semibold border border-primary-500/50">
+                          Empfohlen
+                        </div>
+                      )}
+                      
+                      <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-purple-500 rounded-xl flex items-center justify-center mb-6">
+                        <Icon size={28} className="text-white" />
+                      </div>
+                      
+                      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 break-words">
+                        {packageItem.title}
+                      </h3>
+                      
+                      <p className="text-sm sm:text-base text-white/60 mb-6 break-words">
+                        {packageItem.description}
+                      </p>
+                      
+                      <div className="mb-6">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-4xl sm:text-5xl font-bold text-white">
+                            {packageItem.price}€
+                          </span>
+                          {packageItem.period && (
+                          <span className="text-white/60 text-sm">
+                            {packageItem.period}
+                          </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <ul className="space-y-3 flex-grow mb-6">
+                        {packageItem.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-start gap-3 text-white/80 text-sm sm:text-base">
+                            <FaCheckCircle className="text-primary-400 mt-1 flex-shrink-0" size={16} />
+                            <span className="break-words">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      
+                      <motion.button
+                        className="w-full px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-semibold text-base transition-colors inline-flex items-center justify-center gap-2"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => {
+                          document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                      >
+                        Kontakt aufnehmen
+                        <FaArrowRight size={14} />
+                      </motion.button>
+                    </motion.div>
+                  </ScrollAnimations>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Portfolio Section mit Scroll-Zoom-Out Effekt */}
       {asaisGroupInfo.projects && asaisGroupInfo.projects.length > 0 && (

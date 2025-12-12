@@ -359,7 +359,7 @@ export const Projects = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const smoothProgressRef = useRef(0);
   const [showScrollHint, setShowScrollHint] = useState(false);
-  const inactivityTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const inactivityTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastScrollTimeRef = useRef<number>(Date.now());
 
   // Scroll Progress Tracking
@@ -450,24 +450,6 @@ export const Projects = () => {
 
   // Scroll-Hint: Erscheint nach 5 Sekunden Inaktivität
   useEffect(() => {
-    const checkInactivity = () => {
-      const now = Date.now();
-      const timeSinceLastScroll = now - lastScrollTimeRef.current;
-      
-      if (timeSinceLastScroll >= 5000) {
-        setShowScrollHint(true);
-      } else {
-        setShowScrollHint(false);
-        // Setze Timer neu
-        if (inactivityTimerRef.current) {
-          clearTimeout(inactivityTimerRef.current);
-        }
-        inactivityTimerRef.current = setTimeout(() => {
-          setShowScrollHint(true);
-        }, 5000);
-      }
-    };
-
     const handleScroll = () => {
       lastScrollTimeRef.current = Date.now();
       setShowScrollHint(false);

@@ -129,7 +129,7 @@ export const Techstack = () => {
             <span className="gradient-text">Techstack</span>{' '}
             <span className="text-white">dieser Website</span>
           </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto break-words px-4">
             Die Technologien und Tools, mit denen diese Portfolio-Website entwickelt wurde
           </p>
         </motion.div>
@@ -157,8 +157,8 @@ export const Techstack = () => {
                 >
                   {tech.icon}
                 </motion.div>
-                <h3 className="text-2xl font-bold text-white">{tech.name}</h3>
-                <p className="text-white/70 text-sm leading-relaxed">{tech.description}</p>
+                <h3 className="text-xl sm:text-2xl font-bold text-white break-words">{tech.name}</h3>
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed break-words">{tech.description}</p>
               </div>
             </motion.div>
           ))}
@@ -170,7 +170,7 @@ export const Techstack = () => {
           animate={hasIntersected ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <div className="glass rounded-2xl p-8 md:p-12">
+          <div className="glass rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 overflow-hidden">
             <motion.h3
               className="text-3xl md:text-4xl font-bold mb-6 gradient-text text-center"
               initial={{ opacity: 0, scale: 0.9 }}
@@ -180,7 +180,7 @@ export const Techstack = () => {
               Warum dieser Techstack?
             </motion.h3>
             <motion.div
-              className="space-y-4 text-lg md:text-xl text-white/80 leading-relaxed"
+              className="space-y-4 text-base sm:text-lg md:text-xl text-white/80 leading-relaxed break-words"
               initial={{ opacity: 0 }}
               animate={hasIntersected ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}

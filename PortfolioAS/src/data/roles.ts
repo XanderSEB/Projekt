@@ -1,6 +1,6 @@
 // Rollen/Begriffe basierend auf dem Skillset
 export const roles = [
-  'Software Ingenieur',
+  'Software Engineer',
   'Games Engineer',
   'SAP ERP',
   'Full Stack Developer',

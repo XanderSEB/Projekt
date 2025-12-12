@@ -45,7 +45,7 @@ export const ASAISGroup = () => {
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <motion.h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 break-words px-2"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 break-words px-2"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -54,7 +54,7 @@ export const ASAISGroup = () => {
             </motion.h1>
             
             <motion.p
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/70 mb-12 max-w-3xl mx-auto break-words px-4"
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/70 mb-12 max-w-3xl mx-auto break-words px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -102,10 +102,10 @@ export const ASAISGroup = () => {
         <div className="container mx-auto px-4 sm:px-6">
             <ScrollAnimations direction="fade">
               <div className="text-center mb-16">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white break-words px-4">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white break-words px-4">
                   Was wir liefern
                 </h2>
-                <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto break-words px-4">
+                <p className="text-lg sm:text-xl md:text-2xl text-white/70 max-w-2xl mx-auto break-words px-4">
                   Entwickelt für Performance. Gestaltet für Wirkung.
                 </p>
               </div>
@@ -148,10 +148,10 @@ export const ASAISGroup = () => {
         <div className="container mx-auto px-4 sm:px-6">
             <ScrollAnimations direction="fade">
               <div className="max-w-4xl mx-auto glass rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 text-center overflow-hidden">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white break-words px-4">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white break-words px-4">
                   Lassen Sie uns über Ihr nächstes Projekt sprechen
                 </h2>
-                <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 break-words px-4">
+                <p className="text-lg sm:text-xl md:text-2xl text-white/70 mb-8 break-words px-4">
                   Kontaktieren Sie uns für eine technische Beratung.
                 </p>
                 
@@ -233,10 +233,10 @@ const ProjectsShowcase = ({ projects }: ProjectsShowcaseProps) => {
       <div className="container mx-auto px-4 sm:px-6">
         <ScrollAnimations direction="fade">
           <div className="text-center mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white break-words px-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white break-words px-4">
               Unsere Projekte
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto break-words px-4">
+            <p className="text-lg sm:text-xl md:text-2xl text-white/70 max-w-2xl mx-auto break-words px-4">
               Entdecken Sie unsere neuesten Projekte und Case Studies
             </p>
             <p className="text-xs sm:text-sm text-white/50 mt-4 break-words px-4">

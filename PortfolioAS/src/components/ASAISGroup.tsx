@@ -37,7 +37,7 @@ export const ASAISGroup = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" />
         </motion.div>
 
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             className="max-w-5xl mx-auto text-center"
             initial={{ opacity: 0, y: 50 }}
@@ -45,7 +45,7 @@ export const ASAISGroup = () => {
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <motion.h1
-              className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 break-words px-2"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -54,7 +54,7 @@ export const ASAISGroup = () => {
             </motion.h1>
             
             <motion.p
-              className="text-xl md:text-2xl text-white/70 mb-12 max-w-3xl mx-auto"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/70 mb-12 max-w-3xl mx-auto break-words px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -63,7 +63,7 @@ export const ASAISGroup = () => {
             </motion.p>
 
             <motion.p
-              className="text-lg text-white/60 mb-12 max-w-2xl mx-auto leading-relaxed"
+              className="text-sm sm:text-base md:text-lg text-white/60 mb-12 max-w-2xl mx-auto leading-relaxed break-words px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -99,13 +99,13 @@ export const ASAISGroup = () => {
 
       {/* Services Section */}
       <section className="relative py-24">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
             <ScrollAnimations direction="fade">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white break-words px-4">
                   Was wir liefern
                 </h2>
-                <p className="text-xl text-white/70 max-w-2xl mx-auto">
+                <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto break-words px-4">
                   Entwickelt für Performance. Gestaltet für Wirkung.
                 </p>
               </div>
@@ -117,17 +117,17 @@ export const ASAISGroup = () => {
               return (
                 <ScrollAnimations key={index} direction="up" delay={index * 0.1}>
                   <motion.div
-                    className="glass rounded-2xl p-8 h-full flex flex-col"
+                    className="glass rounded-2xl p-4 sm:p-6 md:p-8 h-full flex flex-col overflow-hidden"
                     whileHover={{ y: -8, scale: 1.02 }}
                     transition={{ duration: 0.3 }}
                   >
                     <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-purple-500 rounded-xl flex items-center justify-center mb-6">
                       <Icon size={28} className="text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-4">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 break-words">
                       {service.title}
                     </h3>
-                    <p className="text-white/70 leading-relaxed flex-grow">
+                    <p className="text-sm sm:text-base text-white/70 leading-relaxed flex-grow break-words">
                       {service.description}
                     </p>
                   </motion.div>
@@ -145,13 +145,13 @@ export const ASAISGroup = () => {
 
       {/* Contact Section */}
       <section className="relative py-24">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
             <ScrollAnimations direction="fade">
-              <div className="max-w-4xl mx-auto glass rounded-2xl p-12 text-center">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+              <div className="max-w-4xl mx-auto glass rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 text-center overflow-hidden">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white break-words px-4">
                   Lassen Sie uns über Ihr nächstes Projekt sprechen
                 </h2>
-                <p className="text-xl text-white/70 mb-8">
+                <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 break-words px-4">
                   Kontaktieren Sie uns für eine technische Beratung.
                 </p>
                 
@@ -230,16 +230,16 @@ const ProjectsShowcase = ({ projects }: ProjectsShowcaseProps) => {
 
   return (
     <section className="relative py-24 bg-slate-900/50 overflow-hidden">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <ScrollAnimations direction="fade">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white break-words px-4">
               Unsere Projekte
             </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto break-words px-4">
               Entdecken Sie unsere neuesten Projekte und Case Studies
             </p>
-            <p className="text-sm text-white/50 mt-4">
+            <p className="text-xs sm:text-sm text-white/50 mt-4 break-words px-4">
               Scrollen Sie, um durch die Projekte zu navigieren
             </p>
           </div>
@@ -247,7 +247,7 @@ const ProjectsShowcase = ({ projects }: ProjectsShowcaseProps) => {
       </div>
 
       {/* Scroll Container - Projekte untereinander */}
-      <div className="relative w-full max-w-6xl mx-auto px-6">
+      <div className="relative w-full max-w-6xl mx-auto px-4 sm:px-6">
         <div className="space-y-12 md:space-y-16">
           {projects && projects.length > 0 ? (
             projects.map((project, index) => (
@@ -326,16 +326,16 @@ const ProjectCard = ({
           </div>
 
           {/* Projekt Content */}
-          <div className="p-8 flex-grow flex flex-col" style={{ pointerEvents: 'auto' }}>
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+          <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col overflow-hidden" style={{ pointerEvents: 'auto' }}>
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 break-words">
               {project.title}
             </h3>
-            <p className="text-white/80 mb-4 leading-relaxed">
+            <p className="text-sm sm:text-base text-white/80 mb-4 leading-relaxed break-words">
               {project.description}
             </p>
 
             {project.longDescription && (
-              <p className="text-white/70 mb-6 leading-relaxed text-sm line-clamp-2">
+              <p className="text-xs sm:text-sm text-white/70 mb-6 leading-relaxed line-clamp-2 break-words">
                 {project.longDescription}
               </p>
             )}

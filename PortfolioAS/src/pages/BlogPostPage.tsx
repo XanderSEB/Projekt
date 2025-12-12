@@ -42,7 +42,12 @@ export const BlogPostPage = () => {
 
   if (!project) {
     return (
-      <div className="App">
+      <motion.div
+        className="App"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      >
         <CursorTracker />
         <Header />
         <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-900 to-slate-800">
@@ -54,12 +59,17 @@ export const BlogPostPage = () => {
           </div>
         </main>
         <Footer />
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="App">
+    <motion.div
+      className="App"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+    >
       <CursorTracker />
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
@@ -606,7 +616,7 @@ export const BlogPostPage = () => {
           </>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };
 

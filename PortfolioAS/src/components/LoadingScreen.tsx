@@ -10,7 +10,7 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    const duration = 3000; // 3 Sekunden
+    const duration = 2000; // 2 Sekunden (kürzer)
     const interval = 16; // ~60fps
     const increment = 100 / (duration / interval);
 
@@ -24,7 +24,7 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           // Rufe onComplete nach der Exit-Animation auf
           setTimeout(() => {
             onComplete();
-          }, 500); // Warte auf Exit-Animation
+          }, 800); // Längere Exit-Animation für flüssigeren Übergang
           return 100;
         }
         return newProgress;
@@ -38,8 +38,11 @@ export const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     <motion.div
       className="fixed inset-0 z-[9999] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center"
       initial={{ opacity: 1 }}
-      animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      animate={isExiting ? { opacity: 0, scale: 1.05 } : { opacity: 1, scale: 1 }}
+      transition={{ 
+        duration: 0.8, 
+        ease: [0.25, 0.1, 0.25, 1] // Sanftere Easing-Funktion
+      }}
     >
         <div className="w-full max-w-md px-6">
           {/* Loading Bar Container */}

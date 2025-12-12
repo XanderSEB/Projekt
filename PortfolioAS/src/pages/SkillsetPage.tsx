@@ -38,7 +38,12 @@ const getLevelLabel = (level: string) => {
 
 export const SkillsetPage = () => {
   return (
-    <div className="App">
+    <motion.div
+      className="App"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+    >
       <CursorTracker />
       <Header />
       <main className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
@@ -192,7 +197,7 @@ export const SkillsetPage = () => {
         </section>
       </main>
       <Footer />
-    </div>
+    </motion.div>
   );
 };
 

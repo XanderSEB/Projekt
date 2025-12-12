@@ -23,6 +23,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  background: #0f172a; /* Dunkler Hintergrund, um weißen Flash zu vermeiden */
+  color: white;
+}
+
+html {
+  background: #0f172a; /* Dunkler Hintergrund für HTML */
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -1,16 +1,19 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope, FaYoutube } from 'react-icons/fa';
 import { useTranslation } from '../hooks/useTranslation';
+import { ContactModal } from './ContactModal';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const { t, language } = useTranslation();
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const socialLinks = [
     { icon: FaGithub, href: 'https://github.com/XanderSEB', label: 'GitHub' },
     { icon: FaLinkedin, href: 'https://www.linkedin.com/in/alexander-schwab-3bb61b383/', label: 'LinkedIn' },
-    { icon: FaEnvelope, href: 'mailto:as-productions@outlook.de', label: 'Email' },
+    { icon: FaEnvelope, href: '#', label: 'Email', isEmail: true },
     { icon: FaYoutube, href: 'https://www.youtube.com/@alexanderschwab7288', label: 'YouTube' },
   ];
 
@@ -120,6 +123,24 @@ export const Footer = () => {
             <div className="flex space-x-4">
               {socialLinks.map((link, index) => {
                 const Icon = link.icon;
+                if (link.isEmail) {
+                  return (
+                    <motion.button
+                      key={link.label}
+                      onClick={() => setIsContactModalOpen(true)}
+                      className="w-12 h-12 glass rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      whileTap={{ scale: 0.9 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      aria-label={link.label}
+                    >
+                      <Icon size={20} />
+                    </motion.button>
+                  );
+                }
                 return (
                   <motion.a
                     key={link.label}
@@ -158,6 +179,7 @@ export const Footer = () => {
           </div>
         </div>
       </div>
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </footer>
   );
 };

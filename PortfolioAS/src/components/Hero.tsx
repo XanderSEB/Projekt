@@ -4,11 +4,13 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { Parallax } from './ScrollAnimations';
 import { roles } from '../data/roles';
 import { useTranslation } from '../hooks/useTranslation';
+import { ContactForm } from './ContactForm';
 
 export const Hero = () => {
   const { scrollY } = useScrollAnimation();
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const { t } = useTranslation();
 
   // Rotiere durch die Rollen
@@ -162,18 +164,14 @@ export const Hero = () => {
               />
             </motion.a>
 
-            <motion.a
-              href="#contact"
+            <motion.button
               className="px-8 py-4 glass text-white rounded-full font-semibold text-lg hover:bg-white/20 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => setIsContactFormOpen(true)}
             >
               {t('hero.contact')}
-            </motion.a>
+            </motion.button>
           </motion.div>
         </motion.div>
       </motion.div>
@@ -192,6 +190,8 @@ export const Hero = () => {
           />
         </div>
       </motion.div>
+
+      <ContactForm isOpen={isContactFormOpen} onClose={() => setIsContactFormOpen(false)} />
     </section>
   );
 };

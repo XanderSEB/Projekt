@@ -36,14 +36,23 @@ export const Header = () => {
     }
     
     if (route && location.pathname !== route) {
+      // Navigate to route first
       navigate(route);
+      // Wait for navigation and page load, then scroll to element
       setTimeout(() => {
-        const element = document.querySelector(href);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
+        const scrollToElement = () => {
+          const element = document.querySelector(href);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            // If element not found yet, try again after a short delay
+            setTimeout(scrollToElement, 100);
+          }
+        };
+        scrollToElement();
+      }, 200);
     } else {
+      // Already on the correct page, just scroll
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });

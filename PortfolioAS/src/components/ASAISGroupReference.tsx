@@ -12,7 +12,7 @@ export const ASAISGroupReference = () => {
 
   return (
     <section
-      id="asais-reference"
+      id="asais"
       ref={elementRef as React.RefObject<HTMLElement>}
       className="relative py-24 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 overflow-hidden"
     >

@@ -40,7 +40,7 @@ const mapLevel = (level: string): 'beginner' | 'intermediate' | 'advanced' | 'ex
 export const skillsetData: SkillsetData = {
   title: 'Skills-Übersicht — Selbsteinschätzung',
   introduction: 'Die hier aufgeführten Kenntnisse stellen meine persönliche Selbsteinschätzung dar und beruhen auf dem Wissen, das ich mir während meines Studiums angeeignet habe. Diese Übersicht bietet einen kompakten Überblick über die Technologien, Methoden und Themen, mit denen ich im Studienverlauf gearbeitet habe. In keinem der genannten Bereiche betrachte ich mich als absoluten Experten, vielmehr möchte ich transparent darstellen, welche Erfahrungen und Kompetenzen ich erworben habe.',
-  lastUpdated: '2025-01-15',
+  lastUpdated: '2025-12-15',
   categories: [
     {
       id: 'programming-languages',
@@ -172,6 +172,9 @@ export const skillsetData: SkillsetData = {
       description: 'Business-Software und ERP-Systeme',
       skills: [
         { id: 'excel', name: 'Microsoft Excel (Pivot, VBA basics)', level: mapLevel('High'), description: 'Reporting, Analysen' },
+        { id: 'word', name: 'Microsoft Word', level: mapLevel('High'), description: 'Dokumentation, Formatierung' },
+        { id: 'powerpoint', name: 'Microsoft PowerPoint', level: mapLevel('High'), description: 'Präsentationen, Visualisierung' },
+        { id: 'office', name: 'Microsoft Office Suite', level: mapLevel('High'), description: 'Office-Anwendungen, Collaboration' },
         { id: 'sap', name: 'SAP / ERP', level: mapLevel('Medium'), description: 'Enterprise-Software, Prozesse' },
       ],
     },

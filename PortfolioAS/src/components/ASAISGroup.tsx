@@ -3,9 +3,13 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { asaisGroupInfo, Project } from '../data/asaisGroup';
 import { ScrollAnimations } from './ScrollAnimations';
 import { FaArrowRight, FaEnvelope, FaPhone, FaCheckCircle, FaHeadset, FaLaptopCode, FaRocket, FaGlobe } from 'react-icons/fa';
+import { ContactModal } from './ContactModal';
+import { ContactForm } from './ContactForm';
 
 export const ASAISGroup = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -163,9 +167,7 @@ export const ASAISGroup = () => {
                         className="w-full px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-semibold text-base transition-colors inline-flex items-center justify-center gap-2"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => {
-                          document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-                        }}
+                        onClick={() => setIsContactFormOpen(true)}
                       >
                         Kontakt aufnehmen
                         <FaArrowRight size={14} />
@@ -197,8 +199,8 @@ export const ASAISGroup = () => {
                 </p>
                 
                 <div className="flex flex-col md:flex-row gap-6 justify-center">
-                  <motion.a
-                    href={`mailto:${asaisGroupInfo.contact.email}`}
+                  <motion.button
+                    onClick={() => setIsContactModalOpen(true)}
                     className="flex items-center gap-3 px-6 py-4 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition-colors border border-white/20"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -208,7 +210,7 @@ export const ASAISGroup = () => {
                       <div className="text-sm text-white/60">E-Mail-Anfragen</div>
                       <div className="font-semibold">{asaisGroupInfo.contact.email}</div>
                     </div>
-                  </motion.a>
+                  </motion.button>
                   
                   {asaisGroupInfo.contact.phone && (
                     <motion.a
@@ -229,6 +231,8 @@ export const ASAISGroup = () => {
             </ScrollAnimations>
         </div>
       </section>
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
+      <ContactForm isOpen={isContactFormOpen} onClose={() => setIsContactFormOpen(false)} />
     </div>
   );
 };

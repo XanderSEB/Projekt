@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { ContactForm } from '../../../PortfolioAS/src/components/ContactForm';
 
 export const Hero = () => {
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -81,18 +84,14 @@ export const Hero = () => {
               />
             </motion.a>
 
-            <motion.a
-              href="#contact"
+            <motion.button
               className="px-8 py-4 glass text-white rounded-full font-semibold text-lg hover:bg-white/20 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => setIsContactFormOpen(true)}
             >
               Kontakt aufnehmen
-            </motion.a>
+            </motion.button>
           </motion.div>
         </motion.div>
       </motion.div>
@@ -111,6 +110,8 @@ export const Hero = () => {
           />
         </div>
       </motion.div>
+
+      <ContactForm isOpen={isContactFormOpen} onClose={() => setIsContactFormOpen(false)} />
     </section>
   );
 };

@@ -2,7 +2,7 @@
 export const roles = [
   'Software Engineer',
   'Games Engineer',
-  'SAP ERP',
+  'SAP ERP Engineer',
   'Full Stack Developer',
   'Frontend Developer',
   'Backend Developer',

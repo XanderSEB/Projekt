@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaUser, FaMessage, FaPaperPlane, FaTimes } from 'react-icons/fa';
-import { useTranslation } from '../hooks/useTranslation';
+import { FaEnvelope, FaUser, FaPaperPlane, FaTimes, FaFileAlt } from 'react-icons/fa';
 
 interface ContactFormProps {
   isOpen: boolean;
@@ -9,7 +8,6 @@ interface ContactFormProps {
 }
 
 export const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
-  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,7 +25,7 @@ export const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
 
     // Get the appropriate email based on contact type
     const recipientEmail = formData.contactType === 'portfolio' 
-      ? 'as-productions@outlook.de'
+      ? 'alexander1.schwab@web.de'
       : 'as-productions@outlook.de'; // ASAIS Group email (same for now)
 
     // Create mailto link with form data
@@ -199,7 +197,7 @@ export const ContactForm = ({ isOpen, onClose }: ContactFormProps) => {
                 Nachricht *
               </label>
               <div className="relative">
-                <FaMessage className="absolute left-4 top-4 text-white/40" size={16} />
+                <FaFileAlt className="absolute left-4 top-4 text-white/40" size={16} />
                 <textarea
                   name="message"
                   value={formData.message}

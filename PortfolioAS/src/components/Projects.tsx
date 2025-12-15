@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePres
 import { projects } from '../data/projects';
 import { FaYoutube, FaCircle, FaBlog, FaMobileAlt, FaGlobe, FaChevronDown } from 'react-icons/fa';
 import { useCookieConsent } from './CookieBanner';
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation, TranslationFunction } from '../hooks/useTranslation';
 
 interface TabProps {
   project: typeof projects[0];
@@ -51,7 +51,7 @@ const getProjectIcon = (project: typeof projects[0]) => {
 };
 
 // Helper function to get action buttons based on project type
-const getActionButtons = (project: typeof projects[0], youtubeConsent: boolean, t: (key: string) => string) => {
+const getActionButtons = (project: typeof projects[0], youtubeConsent: boolean, t: TranslationFunction) => {
   const buttons = [];
 
   if (project.youtubeUrl) {
@@ -159,7 +159,7 @@ const getActionButtons = (project: typeof projects[0], youtubeConsent: boolean, 
   return buttons.length > 0 ? buttons : null;
 };
 
-const Tab = ({ project, index, scrollProgress, isActive: _isActive, activeIndex, totalTabs, youtubeConsent, t }: TabProps & { youtubeConsent: boolean; t: (key: string) => string }) => {
+const Tab = ({ project, index, scrollProgress, isActive: _isActive, activeIndex, totalTabs, youtubeConsent, t }: TabProps & { youtubeConsent: boolean; t: TranslationFunction }) => {
   // Smooth Easing Function (ease-in-out cubic)
   const smoothEase = (t: number) => {
     return t < 0.5 

@@ -14,7 +14,6 @@ const COOKIE_CONSENT_KEY = 'cookieConsent';
 
 export const CookieBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
-  const [consent, setConsent] = useState<CookieConsent | null>(null);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -22,8 +21,7 @@ export const CookieBanner = () => {
     const savedConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
     if (savedConsent) {
       try {
-        const parsed = JSON.parse(savedConsent) as CookieConsent;
-        setConsent(parsed);
+        JSON.parse(savedConsent) as CookieConsent;
         setShowBanner(false);
       } catch {
         // Bei Fehler Banner anzeigen
@@ -70,7 +68,6 @@ export const CookieBanner = () => {
 
   const saveConsent = (newConsent: CookieConsent) => {
     localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(newConsent));
-    setConsent(newConsent);
     setShowBanner(false);
     // Event für andere Komponenten
     window.dispatchEvent(new CustomEvent('cookieConsentUpdated', { detail: newConsent }));

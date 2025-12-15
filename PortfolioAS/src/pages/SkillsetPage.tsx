@@ -4,7 +4,7 @@ import { Footer } from '../components/Footer';
 import { CursorTracker } from '../components/CursorTracker';
 import { Link } from 'react-router-dom';
 import { skillsetData } from '../data/skillset';
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation, TranslationFunction } from '../hooks/useTranslation';
 import { FaArrowLeft, FaCode, FaCheckCircle, FaCalendarAlt } from 'react-icons/fa';
 
 const getLevelColor = (level: string) => {
@@ -22,7 +22,7 @@ const getLevelColor = (level: string) => {
   }
 };
 
-const getLevelLabel = (level: string, t: (key: string) => string) => {
+const getLevelLabel = (level: string, t: TranslationFunction) => {
   switch (level) {
     case 'expert':
       return t('skillset.level.expert');

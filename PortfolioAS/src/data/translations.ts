@@ -1,4 +1,4 @@
-type TranslationKey = 
+export type TranslationKey = 
   | 'nav.home'
   | 'nav.projects'
   | 'nav.skills'
@@ -131,6 +131,7 @@ export const translations: Record<'de' | 'en', Record<TranslationKey, string>> =
     'hero.subtitle': 'Willkommen in meiner digitalen Welt',
     'hero.cta': 'Meine Projekte entdecken',
     'hero.welcome': 'Willkommen auf meiner Portfolio-Webseite. Hier finden Sie meine Projekte, meine Bildung und meinen Techstack.',
+    'hero.description': 'Willkommen auf meiner Portfolio-Webseite. Hier finden Sie meine Projekte, meine Bildung und meinen Techstack.',
     'hero.contact': 'Kontakt aufnehmen',
     'hero.hi': 'Hi, I am a',
     'footer.about': 'Portfolio AS',
@@ -250,6 +251,7 @@ export const translations: Record<'de' | 'en', Record<TranslationKey, string>> =
     'hero.subtitle': 'Welcome to my digital world',
     'hero.cta': 'Discover my projects',
     'hero.welcome': 'Welcome to my portfolio website. Here you will find my projects, my education, and my tech stack.',
+    'hero.description': 'Welcome to my portfolio website. Here you will find my projects, my education, and my tech stack.',
     'hero.contact': 'Get in touch',
     'hero.hi': 'Hi, I am a',
     'footer.about': 'Portfolio AS',

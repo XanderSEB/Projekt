@@ -1,12 +1,12 @@
 import { useLanguage } from '../context/LanguageContext';
-import { translations } from '../data/translations';
+import { translations, TranslationKey } from '../data/translations';
 
-type TranslationKey = keyof typeof translations.de;
+export type TranslationFunction = (key: TranslationKey) => string;
 
 export const useTranslation = () => {
   const { language } = useLanguage();
   
-  const t = (key: TranslationKey): string => {
+  const t: TranslationFunction = (key: TranslationKey): string => {
     return translations[language][key] || key;
   };
   

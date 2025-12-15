@@ -2,11 +2,13 @@ import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { Link } from 'react-router-dom';
 import { FaBuilding, FaArrowRight } from 'react-icons/fa';
+import { useTranslation } from '../hooks/useTranslation';
 
 export const ASAISGroupReference = () => {
   const { elementRef, hasIntersected } = useIntersectionObserver({
     threshold: 0.2,
   });
+  const { t } = useTranslation();
 
   return (
     <section
@@ -45,7 +47,7 @@ export const ASAISGroupReference = () => {
               animate={hasIntersected ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <span className="gradient-text">ASAIS Group</span>
+              <span className="gradient-text">{t('asais.title')}</span>
             </motion.h2>
 
             <motion.p
@@ -54,7 +56,7 @@ export const ASAISGroupReference = () => {
               animate={hasIntersected ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              Erfahren Sie mehr über mein Kleingewerbe und die Services, die ich anbiete.
+              {t('asais.description')}
             </motion.p>
 
             <motion.div
@@ -68,7 +70,7 @@ export const ASAISGroupReference = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span>Zur ASAIS Group Seite</span>
+                  <span>{t('asais.button')}</span>
                   <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </motion.button>
               </Link>

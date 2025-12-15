@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
 import { projects } from '../data/projects';
 import { FaYoutube, FaCircle, FaBlog, FaMobileAlt, FaGlobe, FaChevronDown } from 'react-icons/fa';
+import { useCookieConsent } from './CookieBanner';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface TabProps {
   project: typeof projects[0];
@@ -49,25 +51,45 @@ const getProjectIcon = (project: typeof projects[0]) => {
 };
 
 // Helper function to get action buttons based on project type
-const getActionButtons = (project: typeof projects[0]) => {
+const getActionButtons = (project: typeof projects[0], youtubeConsent: boolean, t: (key: string) => string) => {
   const buttons = [];
 
   if (project.youtubeUrl) {
-    buttons.push(
-      <motion.a
-        key="youtube"
-        href={project.youtubeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-2 px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg text-xs border border-red-500/30 transition-colors"
-        style={{ pointerEvents: 'auto' }}
-        whileHover={{ scale: 1.05, x: 2 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        <FaYoutube size={12} />
-        YouTube
-      </motion.a>
-    );
+    if (youtubeConsent) {
+      buttons.push(
+        <motion.a
+          key="youtube"
+          href={project.youtubeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg text-xs border border-red-500/30 transition-colors"
+          style={{ pointerEvents: 'auto' }}
+          whileHover={{ scale: 1.05, x: 2 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FaYoutube size={12} />
+          {t('projects.youtube')}
+        </motion.a>
+      );
+    } else {
+      buttons.push(
+        <motion.button
+          key="youtube-consent"
+          onClick={() => {
+            // Öffne Cookie-Einstellungen (könnte ein Modal sein oder zum Footer scrollen)
+            window.dispatchEvent(new CustomEvent('showCookieBanner'));
+          }}
+          className="flex items-center gap-2 px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg text-xs border border-red-500/30 transition-colors cursor-pointer"
+          style={{ pointerEvents: 'auto' }}
+          whileHover={{ scale: 1.05, x: 2 }}
+          whileTap={{ scale: 0.95 }}
+          title="Cookie-Zustimmung erforderlich"
+        >
+          <FaYoutube size={12} />
+          {t('projects.youtube')}
+        </motion.button>
+      );
+    }
   }
 
   if (project.blogUrl) {
@@ -93,7 +115,7 @@ const getActionButtons = (project: typeof projects[0]) => {
         whileTap={{ scale: 0.95 }}
       >
         <FaBlog size={12} />
-        Blog lesen
+        {t('projects.blog')}
       </motion.a>
     );
   }
@@ -111,7 +133,7 @@ const getActionButtons = (project: typeof projects[0]) => {
         whileTap={{ scale: 0.95 }}
       >
         <FaMobileAlt size={12} />
-        App öffnen
+        {t('projects.app')}
       </motion.a>
     );
   }
@@ -129,7 +151,7 @@ const getActionButtons = (project: typeof projects[0]) => {
         whileTap={{ scale: 0.95 }}
       >
         <FaGlobe size={12} />
-        Website
+        {t('projects.website')}
       </motion.a>
     );
   }
@@ -137,7 +159,7 @@ const getActionButtons = (project: typeof projects[0]) => {
   return buttons.length > 0 ? buttons : null;
 };
 
-const Tab = ({ project, index, scrollProgress, isActive: _isActive, activeIndex, totalTabs }: TabProps) => {
+const Tab = ({ project, index, scrollProgress, isActive: _isActive, activeIndex, totalTabs, youtubeConsent, t }: TabProps & { youtubeConsent: boolean; t: (key: string) => string }) => {
   // Smooth Easing Function (ease-in-out cubic)
   const smoothEase = (t: number) => {
     return t < 0.5 
@@ -334,7 +356,7 @@ const Tab = ({ project, index, scrollProgress, isActive: _isActive, activeIndex,
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-2 mb-4" style={{ pointerEvents: 'auto' }}>
-            {getActionButtons(project)}
+            {getActionButtons(project, youtubeConsent, t)}
           </div>
 
           {/* Footer */}
@@ -361,6 +383,9 @@ export const Projects = () => {
   const [showScrollHint, setShowScrollHint] = useState(false);
   const inactivityTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastScrollTimeRef = useRef<number>(Date.now());
+  const cookieConsent = useCookieConsent();
+  const youtubeConsent = cookieConsent?.youtube ?? false;
+  const { t } = useTranslation();
 
   // Scroll Progress Tracking
   const { scrollYProgress } = useScroll({
@@ -546,14 +571,14 @@ export const Projects = () => {
               transition={{ duration: 0.8 }}
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-2">
-                <span className="gradient-text">Meine</span>{' '}
-                <span className="text-white">Projekte</span>
+                <span className="gradient-text">{t('projects.title')}</span>{' '}
+                <span className="text-white">{t('nav.projects')}</span>
               </h2>
               <p className="text-lg text-white/70 max-w-2xl mx-auto">
-                Eine Auswahl meiner besten Projekte und Arbeiten
+                {t('projects.subtitle')}
               </p>
               <p className="text-xs text-white/50 mt-2">
-                Scrollen Sie, um durch die Projekte zu navigieren
+                {t('projects.scrollHint')}
               </p>
             </motion.div>
 
@@ -570,6 +595,8 @@ export const Projects = () => {
                       isActive={index === activeIndex}
                       activeIndex={activeIndex}
                       totalTabs={projects.length}
+                      youtubeConsent={youtubeConsent}
+                      t={t}
                     />
                   ))}
                 </div>
@@ -594,7 +621,7 @@ export const Projects = () => {
                         ease: "easeInOut"
                       }}
                     >
-                      <div className="text-sm font-medium mb-1">Weiter scrollen</div>
+                      <div className="text-sm font-medium mb-1">{t('projects.scrollHint')}</div>
                       <motion.div
                         animate={{ y: [0, 8, 0] }}
                         transition={{

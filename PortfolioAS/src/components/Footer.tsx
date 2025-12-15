@@ -1,14 +1,17 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaEnvelope, FaYoutube } from 'react-icons/fa';
+import { useTranslation } from '../hooks/useTranslation';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t, language } = useTranslation();
 
   const socialLinks = [
-    { icon: FaGithub, href: '#', label: 'GitHub' },
-    { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
-    { icon: FaEnvelope, href: 'mailto:contact@example.com', label: 'Email' },
-    { icon: FaYoutube, href: '#', label: 'YouTube' },
+    { icon: FaGithub, href: 'https://github.com/XanderSEB', label: 'GitHub' },
+    { icon: FaLinkedin, href: 'https://www.linkedin.com/in/alexander-schwab-3bb61b383/', label: 'LinkedIn' },
+    { icon: FaEnvelope, href: 'mailto:as-productions@outlook.de', label: 'Email' },
+    { icon: FaYoutube, href: 'https://www.youtube.com/@alexanderschwab7288', label: 'YouTube' },
   ];
 
   return (
@@ -22,10 +25,11 @@ export const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold mb-4 gradient-text">Portfolio AS</h3>
+            <h3 className="text-2xl font-bold mb-4 gradient-text">{t('footer.about')}</h3>
             <p className="text-white/70">
-              Eine moderne Portfolio-Webseite, die meine Projekte, Bildung und
-              die ASAIS Group präsentiert.
+              {language === 'de' 
+                ? 'Eine moderne Portfolio-Webseite, die meine Projekte, Bildung und die ASAIS Group präsentiert.'
+                : 'A modern portfolio website showcasing my projects, education, and the ASAIS Group.'}
             </p>
           </motion.div>
 
@@ -36,7 +40,7 @@ export const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h4 className="text-xl font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-xl font-semibold mb-4">{t('footer.quickLinks')}</h4>
             <ul className="space-y-2">
               <li>
                 <a
@@ -47,7 +51,7 @@ export const Footer = () => {
                     document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >
-                  Home
+                  {t('nav.home')}
                 </a>
               </li>
               <li>
@@ -59,7 +63,7 @@ export const Footer = () => {
                     document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >
-                  Projekte
+                  {t('nav.projects')}
                 </a>
               </li>
               <li>
@@ -71,7 +75,7 @@ export const Footer = () => {
                     document.querySelector('#education')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >
-                  Bildung
+                  {t('nav.education')}
                 </a>
               </li>
               <li>
@@ -83,8 +87,24 @@ export const Footer = () => {
                     document.querySelector('#asais')?.scrollIntoView({ behavior: 'smooth' });
                   }}
                 >
-                  ASAIS Group
+                  {t('nav.asaisGroup')}
                 </a>
+              </li>
+              <li>
+                <Link
+                  to="/impressum"
+                  className="text-white/70 hover:text-white transition-colors"
+                >
+                  {t('footer.impressum')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/datenschutz"
+                  className="text-white/70 hover:text-white transition-colors"
+                >
+                  {t('footer.datenschutz')}
+                </Link>
               </li>
             </ul>
           </motion.div>
@@ -96,7 +116,7 @@ export const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h4 className="text-xl font-semibold mb-4">Social Media</h4>
+            <h4 className="text-xl font-semibold mb-4">{t('footer.socialMedia')}</h4>
             <div className="flex space-x-4">
               {socialLinks.map((link, index) => {
                 const Icon = link.icon;
@@ -123,8 +143,19 @@ export const Footer = () => {
           </motion.div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 text-center text-white/50">
-          <p>&copy; {currentYear} Portfolio AS. Alle Rechte vorbehalten.</p>
+        <div className="border-t border-white/10 pt-8">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 text-center text-white/50">
+            <p>&copy; {currentYear} {t('footer.copyright')}</p>
+            <div className="flex gap-4 text-sm">
+              <Link to="/impressum" className="hover:text-white transition-colors">
+                {t('footer.impressum')}
+              </Link>
+              <span className="text-white/30">|</span>
+              <Link to="/datenschutz" className="hover:text-white transition-colors">
+                {t('footer.datenschutz')}
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

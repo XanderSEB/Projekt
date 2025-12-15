@@ -3,11 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { Parallax } from './ScrollAnimations';
 import { roles } from '../data/roles';
+import { useTranslation } from '../hooks/useTranslation';
 
 export const Hero = () => {
   const { scrollY } = useScrollAnimation();
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const { t } = useTranslation();
 
   // Rotiere durch die Rollen
   useEffect(() => {
@@ -111,7 +113,7 @@ export const Hero = () => {
                 exit={{ opacity: 0, y: -20, rotateX: 90 }}
                 transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
               >
-                <span className="text-white/60">Hi, I am a </span>
+                <span className="text-white/60">{t('hero.hi')} </span>
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={currentRoleIndex}
@@ -133,8 +135,7 @@ export const Hero = () => {
             className="text-xl md:text-2xl text-white/70 mb-8 leading-relaxed"
             variants={itemVariants}
           >
-            Willkommen auf meiner Portfolio-Webseite. Hier finden Sie meine
-            Projekte, meine Bildung und meinen Techstack.
+            {t('hero.welcome')}
           </motion.p>
 
           {/* Buttons */}
@@ -152,7 +153,7 @@ export const Hero = () => {
                 document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              <span className="relative z-10">Meine Projekte</span>
+              <span className="relative z-10">{t('hero.cta')}</span>
               <motion.div
                 className="absolute inset-0 bg-primary-600"
                 initial={{ x: '-100%' }}
@@ -171,7 +172,7 @@ export const Hero = () => {
                 document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Kontakt aufnehmen
+              {t('hero.contact')}
             </motion.a>
           </motion.div>
         </motion.div>

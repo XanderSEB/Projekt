@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ScrollAnimations } from './ScrollAnimations';
 import { experience, education } from '../data/education';
 import { FaGraduationCap, FaCalendarAlt, FaBriefcase } from 'react-icons/fa';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface EducationItemCardProps {
   item: typeof experience[0];
@@ -10,6 +11,7 @@ interface EducationItemCardProps {
 
 const EducationItemCard = ({ item, index }: EducationItemCardProps) => {
   const isExperience = item.type === 'experience';
+  const { t } = useTranslation();
   
   return (
     <ScrollAnimations
@@ -56,7 +58,7 @@ const EducationItemCard = ({ item, index }: EducationItemCardProps) => {
             <div className="flex items-center gap-2 text-white/60 mb-4">
               <FaCalendarAlt size={14} />
               <span>
-                {item.startDate} - {item.endDate || 'Heute'}
+                {item.startDate} - {item.endDate || t('common.today')}
               </span>
             </div>
 
@@ -69,7 +71,7 @@ const EducationItemCard = ({ item, index }: EducationItemCardProps) => {
             {item.achievements && item.achievements.length > 0 && (
               <div>
                 <h4 className="text-sm sm:text-base text-white font-semibold mb-2 break-words">
-                  {isExperience ? 'Aufgaben & Verantwortungen:' : 'Erfolge:'}
+                  {isExperience ? t('education.tasks') : t('education.achievements')}
                 </h4>
                 <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-white/70">
                   {item.achievements.map((achievement, idx) => (
@@ -86,17 +88,18 @@ const EducationItemCard = ({ item, index }: EducationItemCardProps) => {
 };
 
 export const Education = () => {
+  const { t } = useTranslation();
   return (
     <section id="education" className="py-24 bg-gradient-to-br from-slate-900 to-slate-800">
       <div className="container mx-auto px-4 sm:px-6">
         <ScrollAnimations direction="fade">
           <div className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold mb-4">
-              <span className="gradient-text">Bildung</span>{' '}
-              <span className="text-white">& Ausbildung</span>
+              <span className="gradient-text">{t('education.title')}</span>{' '}
+              <span className="text-white">& {t('education.subtitle')}</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto break-words px-4">
-              Mein Bildungsweg, akademische Qualifikationen und Berufserfahrung
+              {t('education.description')}
             </p>
           </div>
         </ScrollAnimations>
@@ -107,7 +110,7 @@ export const Education = () => {
             <ScrollAnimations direction="fade">
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-8 flex items-center gap-3">
                 <FaBriefcase className="text-orange-400" />
-                <span className="gradient-text">Erfahrung</span>
+                <span className="gradient-text">{t('education.experience')}</span>
               </h3>
             </ScrollAnimations>
             <div className="space-y-8">
@@ -122,7 +125,7 @@ export const Education = () => {
             <ScrollAnimations direction="fade">
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-8 flex items-center gap-3">
                 <FaGraduationCap className="text-primary-400" />
-                <span className="gradient-text">Ausbildung</span>
+                <span className="gradient-text">{t('education.training')}</span>
               </h3>
             </ScrollAnimations>
             <div className="space-y-8">

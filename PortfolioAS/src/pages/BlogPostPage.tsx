@@ -5,11 +5,14 @@ import { projects } from '../data/projects';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { CursorTracker } from '../components/CursorTracker';
+import { useCookieConsent } from '../components/CookieBanner';
 import { FaArrowLeft, FaCalendarAlt, FaTag, FaYoutube, FaGlobe, FaMobileAlt, FaTimes } from 'react-icons/fa';
 
 export const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const cookieConsent = useCookieConsent();
+  const youtubeConsent = cookieConsent?.youtube ?? false;
   
   // Finde das Projekt basierend auf dem Slug
   const project = projects.find((p) => {
@@ -525,17 +528,32 @@ export const BlogPostPage = () => {
                   <h3 className="text-xl font-bold text-white mb-4">Verwandte Links</h3>
                   <div className="flex flex-wrap gap-4">
                     {project.youtubeUrl && (
-                      <motion.a
-                        href={project.youtubeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-6 py-3 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg border border-red-500/30 transition-colors inline-flex items-center gap-2 font-semibold"
-                        whileHover={{ scale: 1.05, x: 2 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <FaYoutube size={16} />
-                        YouTube Video ansehen
-                      </motion.a>
+                      youtubeConsent ? (
+                        <motion.a
+                          href={project.youtubeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-6 py-3 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg border border-red-500/30 transition-colors inline-flex items-center gap-2 font-semibold"
+                          whileHover={{ scale: 1.05, x: 2 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <FaYoutube size={16} />
+                          YouTube Video ansehen
+                        </motion.a>
+                      ) : (
+                        <motion.button
+                          onClick={() => {
+                            window.dispatchEvent(new CustomEvent('showCookieBanner'));
+                          }}
+                          className="px-6 py-3 bg-red-600/20 hover:bg-red-600/30 text-red-300 rounded-lg border border-red-500/30 transition-colors inline-flex items-center gap-2 font-semibold cursor-pointer"
+                          whileHover={{ scale: 1.05, x: 2 }}
+                          whileTap={{ scale: 0.95 }}
+                          title="Cookie-Zustimmung erforderlich"
+                        >
+                          <FaYoutube size={16} />
+                          YouTube Video ansehen
+                        </motion.button>
+                      )
                     )}
                     {project.websiteUrl && (
                       <motion.a

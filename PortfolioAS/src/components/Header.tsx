@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useTranslation } from '../hooks/useTranslation';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,19 +11,20 @@ export const Header = () => {
   const { scrollY } = useScrollAnimation();
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsScrolled(scrollY > 50);
   }, [scrollY]);
 
   const navItems = [
-    { label: 'Home', href: '#home', route: '/' },
-    { label: 'Projekte', href: '#projects', route: '/' },
-    { label: 'Skills', href: '#skills', route: '/' },
-    { label: 'Bildung', href: '#education', route: '/' },
-    { label: 'ASAIS Group', href: '/asais-group', route: '/asais-group', isRoute: true },
-    { label: 'Techstack', href: '#techstack', route: '/' },
-    { label: 'Kontakt', href: '#contact', route: '/' },
+    { label: t('nav.home'), href: '#home', route: '/' },
+    { label: t('nav.projects'), href: '#projects', route: '/' },
+    { label: t('nav.skills'), href: '#skills', route: '/' },
+    { label: t('nav.education'), href: '#education', route: '/' },
+    { label: t('nav.asaisGroup'), href: '/asais-group', route: '/asais-group', isRoute: true },
+    { label: t('nav.techstack'), href: '#techstack', route: '/' },
+    { label: t('nav.contact'), href: '#contact', route: '/' },
   ];
 
   const handleNavClick = (href: string, route?: string, isRoute?: boolean) => {
@@ -75,7 +78,7 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
             {navItems.map((item, index) => {
               if (item.isRoute) {
                 return (
@@ -117,6 +120,7 @@ export const Header = () => {
                 </motion.a>
               );
             })}
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile Menu Button */}
@@ -194,6 +198,9 @@ export const Header = () => {
                   </motion.a>
                 );
               })}
+              <div className="pt-4 border-t border-white/10 mt-4">
+                <LanguageSwitcher />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

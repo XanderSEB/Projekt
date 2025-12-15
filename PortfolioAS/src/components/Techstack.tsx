@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { useTranslation } from '../hooks/useTranslation';
 import { 
   SiReact, 
   SiTypescript, 
@@ -66,6 +67,7 @@ export const Techstack = () => {
   const { elementRef, hasIntersected } = useIntersectionObserver({
     threshold: 0.2,
   });
+  const { t } = useTranslation();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -126,11 +128,11 @@ export const Techstack = () => {
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="gradient-text">Techstack</span>{' '}
-            <span className="text-white">dieser Website</span>
+            <span className="gradient-text">{t('techstack.title')}</span>{' '}
+            <span className="text-white">{t('techstack.subtitle')}</span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto break-words px-4">
-            Die Technologien und Tools, mit denen diese Portfolio-Website entwickelt wurde
+            {t('techstack.description')}
           </p>
         </motion.div>
 
@@ -177,7 +179,7 @@ export const Techstack = () => {
               animate={hasIntersected ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              Warum dieser Techstack?
+              {t('techstack.why')}
             </motion.h3>
             <motion.div
               className="space-y-4 text-base sm:text-lg md:text-xl text-white/80 leading-relaxed break-words"
@@ -185,25 +187,9 @@ export const Techstack = () => {
               animate={hasIntersected ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
             >
-              <p>
-                Diese Website wurde mit modernen Web-Technologien entwickelt, die für{' '}
-                <span className="text-primary-400 font-semibold">Performance</span>,{' '}
-                <span className="text-primary-400 font-semibold">Developer Experience</span> und{' '}
-                <span className="text-primary-400 font-semibold">Wartbarkeit</span> optimiert sind.
-              </p>
-              <p>
-                <span className="text-cyan-400 font-semibold">React</span> ermöglicht eine
-                komponentenbasierte Architektur, während{' '}
-                <span className="text-blue-500 font-semibold">TypeScript</span> für
-                typsicheren Code sorgt. <span className="text-yellow-400 font-semibold">Vite</span>{' '}
-                bietet extrem schnelle Build-Zeiten und Hot Module Replacement.
-              </p>
-              <p>
-                <span className="text-cyan-500 font-semibold">Tailwind CSS</span> ermöglicht
-                schnelles, responsives Design ohne zusätzliche CSS-Dateien, und{' '}
-                <span className="text-pink-500 font-semibold">Framer Motion</span> bringt
-                flüssige Animationen und Interaktionen zum Leben.
-              </p>
+              <p>{t('techstack.whyDescription1')}</p>
+              <p>{t('techstack.whyDescription2')}</p>
+              <p>{t('techstack.whyDescription3')}</p>
             </motion.div>
             <motion.div
               className="mt-8 flex flex-wrap justify-center gap-3"
@@ -211,7 +197,7 @@ export const Techstack = () => {
               animate={hasIntersected ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 1.1 }}
             >
-              {['Modern', 'Performant', 'Skalierbar', 'Type-Safe', 'Responsive'].map(
+              {[t('techstack.modern'), t('techstack.performant'), t('techstack.scalable'), t('techstack.typeSafe'), t('techstack.responsive')].map(
                 (tag, index) => (
                   <motion.span
                     key={tag}

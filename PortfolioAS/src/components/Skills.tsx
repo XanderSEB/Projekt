@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { skills, Skill } from '../data/skills';
 import { FaExternalLinkAlt, FaFileAlt } from 'react-icons/fa';
+import { useTranslation } from '../hooks/useTranslation';
 
 interface FallingSkill extends Skill {
   x: number;
@@ -30,6 +31,7 @@ export const Skills = () => {
   const { elementRef, hasIntersected } = useIntersectionObserver({
     threshold: 0.2,
   });
+  const { t } = useTranslation();
 
   // Initialisiere alle Elemente gleichzeitig
   useEffect(() => {
@@ -292,11 +294,11 @@ export const Skills = () => {
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="gradient-text">Technologien</span>{' '}
-            <span className="text-white">& Skills</span>
+            <span className="gradient-text">{t('skills.title')}</span>{' '}
+            <span className="text-white">& {t('skills.subtitle')}</span>
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Programmiersprachen, Frameworks und Tools, die ich verwendet habe
+            {t('skills.description')}
           </p>
         </motion.div>
 
@@ -330,7 +332,7 @@ export const Skills = () => {
               animate={hasIntersected ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              Meine Tech-Stack
+              {t('skills.techStack')}
             </motion.h3>
             <motion.p
               className="text-lg md:text-xl text-white/80 leading-relaxed mb-6"
@@ -338,11 +340,7 @@ export const Skills = () => {
               animate={hasIntersected ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
             >
-              Über die Jahre habe ich mit einer Vielzahl moderner Technologien gearbeitet.
-              Von Programmiersprachen wie <span className="text-primary-400 font-semibold">TypeScript</span> und{' '}
-              <span className="text-primary-400 font-semibold">Python</span> bis hin zu
-              Frameworks wie <span className="text-purple-400 font-semibold">React</span> und{' '}
-              <span className="text-purple-400 font-semibold">Node.js</span>.
+              {t('skills.techStackDescription1')}
             </motion.p>
             <motion.p
               className="text-lg md:text-xl text-white/80 leading-relaxed"
@@ -350,9 +348,7 @@ export const Skills = () => {
               animate={hasIntersected ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, delay: 1.1 }}
             >
-              Jede Technologie bringt ihre eigenen Herausforderungen und Möglichkeiten mit sich.
-              Durch kontinuierliches Lernen und Experimentieren baue ich mein Wissen stetig aus
-              und passe mich an die sich schnell entwickelnde Tech-Landschaft an.
+              {t('skills.techStackDescription2')}
             </motion.p>
             <motion.div
               className="mt-8 flex flex-wrap justify-center gap-3"
@@ -360,7 +356,7 @@ export const Skills = () => {
               animate={hasIntersected ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 1.3 }}
             >
-              {['Modern', 'Innovativ', 'Skalierbar', 'Performant'].map((tag, index) => (
+              {[t('skills.modern'), t('skills.innovative'), t('skills.scalable'), t('skills.performant')].map((tag, index) => (
                 <motion.span
                   key={tag}
                   className="px-4 py-2 bg-primary-500/20 border border-primary-500/50 rounded-full text-primary-300 text-sm font-semibold"
@@ -393,7 +389,7 @@ export const Skills = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <FaFileAlt size={18} />
-                  <span>Detailliertes Skillset ansehen</span>
+                  <span>{t('skills.viewDetailed')}</span>
                   <FaExternalLinkAlt size={14} className="group-hover:translate-x-1 transition-transform" />
                 </motion.button>
               </Link>
